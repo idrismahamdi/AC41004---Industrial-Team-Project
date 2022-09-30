@@ -118,7 +118,7 @@ CREATE TABLE exception_audit (
 	exception_audit_id serial NOT NULL,
     exception_id int(4) NOT NULL,
     user_id BIGINT UNSIGNED NOT NULL,
-    customer_id int(4) NOT NULL,
+    customer_id BIGINT UNSIGNED NOT NULL,
     rule_id BIGINT UNSIGNED NOT NULL,
     action varchar(255) NOT NULL,
     action_dt timestamp NOT NULL,
@@ -130,6 +130,8 @@ CREATE TABLE exception_audit (
     new_review_date timestamp,
     FOREIGN KEY (user_id) REFERENCES user(user_id), 
     FOREIGN KEY (rule_id) REFERENCES rule(rule_id),
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
+
 	PRIMARY KEY (exception_audit_id)
 );
 
