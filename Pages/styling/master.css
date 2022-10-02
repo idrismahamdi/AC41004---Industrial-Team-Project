@@ -3,5 +3,19 @@ html{
 }
 body{
     background-color: #115E67;
-    font color: #F1B434
+    color: #F1B434
+}
+
+.b{
+  background-color: #0095C8;
+}
+
+
+.p{
+  background-color: #AA0061;
+
+}
+.btn{
+  margin-right: 10px;
+  color: white;
 }
