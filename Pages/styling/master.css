@@ -8,7 +8,6 @@ body{
 
 h1{
   Text-align: center;
-
   font-size:30px;
 }
 .b{
@@ -18,9 +17,13 @@ h1{
 
 .p{
   background-color: #AA0061;
-
 }
+
 .btn{
   margin-right: 10px;
   color: white;
+}
+
+.list-group{
+  max-height: 350px;
 }
