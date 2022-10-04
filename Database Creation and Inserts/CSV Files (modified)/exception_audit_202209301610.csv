@@ -1,0 +1,1 @@
+"exception_audit_id","exception_id","user_id","customer_id","rule_id","action","action_dt","old_exception_value","new_exception_value","old_justification","new_justification","old_review_date","new_review_date"

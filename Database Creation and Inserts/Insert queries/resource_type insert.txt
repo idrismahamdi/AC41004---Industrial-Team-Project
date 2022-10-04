@@ -1,0 +1,10 @@
+INSERT INTO resource_type(resource_type_id,resource_type_name,platform_id) VALUES (1,'ec2',2);
+INSERT INTO resource_type(resource_type_id,resource_type_name,platform_id) VALUES (2,'ebs',2);
+INSERT INTO resource_type(resource_type_id,resource_type_name,platform_id) VALUES (3,'asg',2);
+INSERT INTO resource_type(resource_type_id,resource_type_name,platform_id) VALUES (4,'efs',2);
+INSERT INTO resource_type(resource_type_id,resource_type_name,platform_id) VALUES (5,'app-elb',2);
+INSERT INTO resource_type(resource_type_id,resource_type_name,platform_id) VALUES (6,'eni',2);
+INSERT INTO resource_type(resource_type_id,resource_type_name,platform_id) VALUES (7,'lambda',2);
+INSERT INTO resource_type(resource_type_id,resource_type_name,platform_id) VALUES (10,'rds',2);
+INSERT INTO resource_type(resource_type_id,resource_type_name,platform_id) VALUES (11,'elb',2);
+INSERT INTO resource_type(resource_type_id,resource_type_name,platform_id) VALUES (12,'s3',2);

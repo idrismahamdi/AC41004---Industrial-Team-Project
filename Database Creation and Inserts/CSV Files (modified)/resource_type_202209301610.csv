@@ -1,0 +1,11 @@
+"resource_type_id","resource_type_name","platform_id"
+1,ec2,2
+2,ebs,2
+3,asg,2
+4,efs,2
+5,app-elb,2
+6,eni,2
+7,lambda,2
+10,rds,2
+11,elb,2
+12,s3,2

@@ -1,0 +1,2 @@
+INSERT INTO platform(platform_id,platform_name) VALUES (2,'aws');
+INSERT INTO platform(platform_id,platform_name) VALUES (3,'azure');

@@ -1,0 +1,1 @@
+INSERT INTO user_role(user_role_id,user_role_name) VALUES (1,'system');

@@ -1,0 +1,2 @@
+user_id,user_name,user_password,role_id,customer_id
+1,system,password,1,1
