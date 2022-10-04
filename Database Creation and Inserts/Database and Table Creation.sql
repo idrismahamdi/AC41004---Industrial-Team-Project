@@ -62,6 +62,7 @@ CREATE TABLE user_role (
 CREATE TABLE user (
 	user_id serial NOT NULL,
     user_name varchar(255) NOT NULL,
+    user_password varchar(255) NOT NULL,
     role_id BIGINT UNSIGNED NOT NULL,
     customer_id BIGINT UNSIGNED NOT NULL,
     FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
