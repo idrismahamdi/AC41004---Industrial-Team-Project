@@ -8,7 +8,7 @@ BEGIN
 			return 1;
 
 	ELSE 
-		return 0;
+		        return 0;
 	END if;
 END //
 DELIMITER ;
@@ -24,7 +24,7 @@ SELECT account.account_ref FROM account, customer, user WHERE account.customer_i
 END //
 DELIMITER ;
 
--- get resoureces based off rule id --
+-- get resoureces based off rule id and customer id--
 
 DELIMITER //
 CREATE PROCEDURE get_resource_for_rules(ruleID int, cID int)
