@@ -12,8 +12,9 @@
 </head>
 
 <body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
   <header>
-    <nav class="navbar navbar-expand-lg navbar-dark border" style="background-color: #115E67;">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-expand border navbar-toggler" style="background-color: #115E67;">
       <div class="container">
         <a class="navbar-brand" href="#">
           <img src="Images/logo.png" height="100px" alt="brightsolid">
