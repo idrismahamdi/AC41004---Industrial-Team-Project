@@ -23,3 +23,16 @@ SELECT account.account_ref FROM account, customer, user WHERE account.customer_i
 
 END //
 DELIMITER ;
+
+-- get resoureces based off rule id --
+
+DELIMITER //
+CREATE PROCEDURE get_resource_for_rules(ID int)
+BEGIN
+	SELECT resource.resource_name
+	FROM resource
+	LEFT JOIN resource_type ON resource.resource_type_id = resource_type.resource_type_id
+	LEFT JOIN rule ON resource_type.resource_type_id = rule.resource_type_id
+	WHERE rule.rule_id = ID;
+END //
+DELIMITER ;
