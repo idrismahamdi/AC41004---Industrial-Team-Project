@@ -39,7 +39,31 @@ echo "
   </header>
   <main class='container' style='margin-top: 200px'>";
 getExceptionForm();
-"  </main>
-</body>
+echo "  </main>
+  
+  <script async src='https://cdn.jsdelivr.net/npm/es-module-shims@1/dist/es-module-shims.min.js' crossorigin='anonymous'></script>
+  <script type='importmap'>
+  {
+    \"imports\": {
+    \"@popperjs/core\": \"https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js\",
+      \"bootstrap\": \"https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.esm.min.js\"
+    }
+  }
+  </script>
+  <script type='module'>
+    import * as bootstrap from 'bootstrap'
 
+    const dateSelection = document.getElementsByName('reviewDate');
+//    const customDateInput = document.getElementById('customDateCollapse');
+    const customDateInput = new bootstrap.Collapse('#customDateCollapse', {'toggle': false});
+    for (let dateSelectionElement of dateSelection) {
+        dateSelectionElement.addEventListener('click', (event) => {
+            event.target.value === 'custom'
+                ? customDateInput.show
+                : customDateInput.hide;
+        });
+    }
+
+    </script>
+</body>
 </html>";

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<form>
+  <fieldset class='row mb-3'>
+    <legend class='col-2 col-form-label'>Review in:</legend>
+    <div class='btn-group col' role='group' aria-label='Review date radio toggle button group'>
+      <input type='radio' class='btn-check' name='reviewDate' id='oneMonth' value='oneMonth' autocomplete='off' checked>
+      <label class='btn btn-outline-primary m-0' for='oneMonth'>1 Month</label>
+
+      <input type='radio' class='btn-check' name='reviewDate' id='threeMonths' value='threeMonths' autocomplete='off'>
+      <label class='btn btn-outline-primary m-0' for='threeMonths'>3 Months</label>
+
+      <input type='radio' class='btn-check' name='reviewDate' id='sixMonths' value='sixMonths' autocomplete='off'>
+      <label class='btn btn-outline-primary m-0' for='sixMonths'>6 Months</label>
+
+      <input type='radio' class="btn-check" name='reviewDate' id='oneYear' value='oneYear' autocomplete='off'>
+      <label class='btn btn-outline-primary m-0' for='oneYear'>1 Year</label>
+
+<!--      <a class="btn-check" data-bs-show="collapse" href="#customDateCollapse" role="button" aria-expanded="false" aria-controls="customDateCollapse">-->
+        <input class="btn-check" name='reviewDate' id="custom" value='custom' type='radio' autocomplete='off'>
+<!--      </a>-->
+      <label class='btn btn-outline-primary m-0' for='custom'>Custom</label>
+    </div>
+  </fieldset>
+  <div class='col collapse collapse-horizontal' id="customDateCollapse">
+    <input type='date' placeholder="Choose a date" class='form-control' id='customDateSelector' name='customDate'>
+  </div>
+
+  <div class='row mb-3'>
+    <div class='col-2'>
+      <label for='justification' class='form-label'>Justification:</label>
+    </div>
+    <div class='col'>
+      <textarea class='form-control' id='justification' rows='3'>$justification</textarea>
+    </div>
+  </div>
+</form>
+</body>
+</html>

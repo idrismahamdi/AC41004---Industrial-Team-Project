@@ -6,8 +6,12 @@ $password = "password123!";
 $database = "brightsolid";
 
 //pdo connection with mysql
-$mysql = new PDO(
-    "mysql:host=" . $host . ";dbname=" . $database,
-    $username,
-    $password
-);
+//try {
+    $mysql = new PDO(
+        "mysql:host=" . $host . ";dbname=" . $database,
+        $username,
+        $password
+    );
+//} catch (PDOException $e) {
+//    echo "<p>Error</p>";
+//}
