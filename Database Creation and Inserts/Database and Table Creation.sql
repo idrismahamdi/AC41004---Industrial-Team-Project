@@ -60,7 +60,7 @@ CREATE TABLE user_role (
 
 CREATE TABLE user (
 	user_id serial NOT NULL,
-    user_name varchar(255) NOT NULL,
+    user_name varchar(255) NOT NULL UNIQUE,
     user_password varchar(255) NOT NULL,
     role_id BIGINT UNSIGNED NOT NULL,
     customer_id BIGINT UNSIGNED NOT NULL,
