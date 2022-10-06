@@ -5,10 +5,10 @@ CREATE FUNCTION login(uName VARCHAR(255), uPassword VARCHAR(255)) RETURNS INT
 BEGIN
 	if EXISTS(select * from user where uName = user.user_name and uPassword = user.user_password)
 		THEN
-			return user.user_id;
+			return 1;
 
 	ELSE 
-		        return -1;
+		        return 0;
 	END if;
 END //
 DELIMITER ;
