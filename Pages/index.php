@@ -12,15 +12,8 @@ echo "
   <link rel='stylesheet' href='styling/master.css'>
 
   <title>This is the title of the webpage!</title>
-</head>";
-require_once(dirname(__DIR__)."/connection.php");
-//$stm = $mysql->prepare("call login(:uName,:uPassword)");
-//$stm->bindParam(':uName', $username);
-//$stm->bindParam(':uPassword', $password);
-//$stm->execute();
-//require_once
+</head>
 
-echo "
 <body>
   <header>
     <nav class='navbar navbar-expand-lg fixed-top navbar-dark navbar-expand border' style='background-color: #115E67;'>
@@ -55,7 +48,7 @@ echo "  </main>
 
     const dateSelection = document.getElementsByName('reviewDate');
     const customDateElement = document.getElementById('customDateCollapse');
-    const customDateCollapse = new bootstrap.Collapse(customDateElement, {'toggle': true});
+    const customDateCollapse = new bootstrap.Collapse(customDateElement, {'toggle': false});
     for (let dateSelectionElement of dateSelection) {
         dateSelectionElement.addEventListener('click', (event) => {
             event.target.value === 'custom'
@@ -63,7 +56,6 @@ echo "  </main>
                 : customDateCollapse.hide();
         });
     }
-
-    </script>
+  </script>
 </body>
 </html>";
