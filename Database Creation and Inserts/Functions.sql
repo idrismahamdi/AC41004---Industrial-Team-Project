@@ -8,7 +8,7 @@ BEGIN
 			return user.user_id;
 
 	ELSE 
-		        return 0;
+		        return -1;
 	END if;
 END //
 DELIMITER ;
