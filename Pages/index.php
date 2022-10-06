@@ -54,13 +54,13 @@ echo "  </main>
     import * as bootstrap from 'bootstrap'
 
     const dateSelection = document.getElementsByName('reviewDate');
-//    const customDateInput = document.getElementById('customDateCollapse');
-    const customDateInput = new bootstrap.Collapse('#customDateCollapse', {'toggle': false});
+    const customDateElement = document.getElementById('customDateCollapse');
+    const customDateCollapse = new bootstrap.Collapse(customDateElement, {'toggle': true});
     for (let dateSelectionElement of dateSelection) {
         dateSelectionElement.addEventListener('click', (event) => {
             event.target.value === 'custom'
-                ? customDateInput.show
-                : customDateInput.hide;
+                ? customDateCollapse.show()
+                : customDateCollapse.hide();
         });
     }
 
