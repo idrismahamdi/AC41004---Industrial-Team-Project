@@ -376,7 +376,7 @@ INSERT INTO resource(resource_id,resource_ref,account_id,resource_type_id,resour
 INSERT INTO resource(resource_id,resource_ref,account_id,resource_type_id,resource_name,last_updated) VALUES (1323,'brightsolid-website-infra-dev-ft-initial-dev-webroot',1,12,'brightsolid-website-infra-dev-ft-initial-dev-webroot','2022-09-08 15:27:00');
 INSERT INTO resource(resource_id,resource_ref,account_id,resource_type_id,resource_name,last_updated) VALUES (1324,'bsol-dev-bakery-assets',1,12,'bsol-dev-bakery-assets','2022-09-08 15:27:00');
 INSERT INTO resource(resource_id,resource_ref,account_id,resource_type_id,resource_name,last_updated) VALUES (1325,'bsol-contract-web-hosting-test',1,12,'bsol-contract-web-hosting-test','2022-09-08 15:27:00');
-INSERT INTO resource(resource_id,resource_ref,account_id,resource_type_id,resource_name,last_updated) VALUES (1326,'bsol-mdr-conversions',1,12,'bsol-mdr-conversions','2022-09-08 15:27:00'););
+INSERT INTO resource(resource_id,resource_ref,account_id,resource_type_id,resource_name,last_updated) VALUES (1326,'bsol-mdr-conversions',1,12,'bsol-mdr-conversions','2022-09-08 15:27:00');
 INSERT INTO resource(resource_id,resource_ref,account_id,resource_type_id,resource_name,last_updated) VALUES (1327,'cdk-hnb659fds-assets-011072135518-eu-west-2',1,12,'cdk-hnb659fds-assets-011072135518-eu-west-2','2022-09-08 15:27:00');
 
 INSERT INTO resource_type(resource_type_id,resource_type_name,platform_id) VALUES (1,'ec2',2);
