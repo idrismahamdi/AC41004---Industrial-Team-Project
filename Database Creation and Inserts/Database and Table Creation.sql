@@ -14,7 +14,6 @@ CREATE TABLE resource_type (
     platform_id BIGINT UNSIGNED NOT NULL,
     FOREIGN KEY (platform_id) REFERENCES platform(platform_id),
     PRIMARY KEY (resource_type_id)
-	
 
 );
 
@@ -103,14 +102,14 @@ CREATE TABLE non_compliance_audit (
 CREATE TABLE exception (
 	exception_id serial NOT NULL,
     customer_id BIGINT UNSIGNED NOT NULL,
-    rule_id BIGINT UNSIGNED NOT NULL,
+    resource_id BIGINT UNSIGNED NOT NULL,
     last_updated_by BIGINT UNSIGNED NOT NULL,
     exception_value varchar(255) NOT NULL,
     justification varchar(255) NOT NULL,
     review_date timestamp NOT NULL,
     last_updated timestamp NOT NULL,
 	 FOREIGN KEY (last_updated_by) REFERENCES user(user_id), /* unsure */
-	FOREIGN KEY (rule_id) REFERENCES rule(rule_id),
+	FOREIGN KEY (resource_id) REFERENCES resource(resource_id),
 	 FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
      PRIMARY KEY (exception_id)
 );
@@ -139,8 +138,8 @@ CREATE TABLE exception_audit (
 SET FOREIGN_KEY_CHECKS=0;
 INSERT INTO account(account_id,account_ref,platform_id,customer_id) VALUES (1,011072135518,2,1);
 INSERT INTO customer(customer_id,customer_name) VALUES (1,'brightsolid');
-INSERT INTO exception(exception_id,customer_id,rule_id,last_updated_by,exception_value,justification,review_date,last_updated) VALUES (1,1,4,1,'bs-quorum-dropbox','Enabled by system','2022-12-12 16:23:59','2022-09-12 17:25:36');
-INSERT INTO exception(exception_id,customer_id,rule_id,last_updated_by,exception_value,justification,review_date,last_updated) VALUES (3,1,4,1,'bsol-dev-bakery-assets','Enabled by system','2022-12-12 16:23:59','2022-09-12 17:25:36');
+INSERT INTO exception(exception_id,customer_id,resource_id,last_updated_by,exception_value,justification,review_date,last_updated) VALUES (1,1,1144,1,'bs-quorum-dropbox','Enabled by system','2022-12-12 16:23:47','22-09-12 17:25:37');
+INSERT INTO exception(exception_id,customer_id,resource_id,last_updated_by,exception_value,justification,review_date,last_updated) VALUES (3,1,1144,1,'bsol-dev-bakery-assets','Enabled by system','2022-12-12 16:23:47','22-09-12 17:25:37');
 
 
 INSERT INTO non_compliance(resource_id,rule_id) VALUES (1269,1);
