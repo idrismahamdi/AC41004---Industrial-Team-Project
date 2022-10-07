@@ -1,9 +1,18 @@
 html{
   background-color: #115E67;
 }
+
+.navbar{
+  background-color: #115E67;
+}
+
 body{
     background-color: #115E67;
-    color: #F1B434
+    color: white;
+}
+
+main{
+  margin-top: 200px;
 }
 
 h1{
@@ -22,6 +31,7 @@ h1{
 .btn{
   margin-right: 10px;
   color: white;
+  border-radius: 1.5rem;
 }
 
 .list-group{

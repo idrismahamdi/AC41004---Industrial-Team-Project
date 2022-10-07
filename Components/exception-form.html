@@ -10,26 +10,26 @@
     <legend class='col-2 col-form-label'>Review in:</legend>
     <div class="col col-auto">
       <div class='btn-group' role='group' aria-label='Review date radio toggle button group'>
-        <input type='radio' class='btn-check' name='reviewDate' id='oneMonth' value='oneMonth' autocomplete='off' checked>
+        <input type='radio' class='btn-check' name='reviewDate' id='oneMonth' value='oneMonth' autocomplete='off' required>
         <label class='btn btn-outline-primary m-0' for='oneMonth'>1 Month</label>
 
-        <input type='radio' class='btn-check' name='reviewDate' id='threeMonths' value='threeMonths' autocomplete='off'>
+        <input type='radio' class='btn-check' name='reviewDate' id='threeMonths' value='threeMonths' autocomplete='off' required>
         <label class='btn btn-outline-primary m-0' for='threeMonths'>3 Months</label>
 
-        <input type='radio' class='btn-check' name='reviewDate' id='sixMonths' value='sixMonths' autocomplete='off'>
+        <input type='radio' class='btn-check' name='reviewDate' id='sixMonths' value='sixMonths' autocomplete='off' required>
         <label class='btn btn-outline-primary m-0' for='sixMonths'>6 Months</label>
 
-        <input type='radio' class="btn-check" name='reviewDate' id='oneYear' value='oneYear' autocomplete='off'>
+        <input type='radio' class="btn-check" name='reviewDate' id='oneYear' value='oneYear' autocomplete='off' required>
         <label class='btn btn-outline-primary m-0' for='oneYear'>1 Year</label>
 
-        <input class="btn-check" name='reviewDate' id="custom" value='custom' type='radio' autocomplete='off'>
+        <input class="btn-check" name='reviewDate' id="custom" value='custom' type='radio' autocomplete='off' required>
         <label class='btn btn-outline-primary m-0' for='custom'>Custom</label>
       </div>
     </div>
 
     <div class="col-auto">
       <div class='collapse collapse-horizontal' id="customDateCollapse">
-        <input type='date' placeholder="Choose a date" class='form-control' id='customDateSelector' name='customDate'>
+        <input type='date' placeholder="Choose a date" class='form-control' id='customDateInput' name='customDate' required>
       </div>
     </div>
   </fieldset>
@@ -39,14 +39,13 @@
       <label for='justification' class='form-label'>Justification:</label>
     </div>
     <div class='col'>
-      <textarea class='form-control' id='justification' rows='4'></textarea>
+      <textarea class='form-control' id='justification' rows='4' required></textarea>
     </div>
   </div>
 
   <div class="row mb-3 justify-content-start">
     <div class="col offset-2">
-      <button class="btn btn-primary col" type="button">Create exception</button>
-      <button class="btn btn-secondary col" type="button">Suspend</button>
+      <button class="btn btn-primary col" type="submit">Create exception</button>
     </div>
   </div>
 </form>

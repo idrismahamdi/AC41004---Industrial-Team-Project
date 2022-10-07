@@ -1,8 +1,6 @@
 <?php
-session_start();
-require_once(dirname(__DIR__) . "/Components/exception-form.php");
 echo "
-<html>
+<html lang='en'>
 
 <head>
 
@@ -23,39 +21,11 @@ echo "
         </a>
       </div>
       <div class='collapse navbar-collapse' id='navbarNav'>
-        <form class='d-flex' role='button'>
-       <button class='btn b' type='submit'>home</button>
-       <button class='btn p' type='submit'>log out</button>
-     </form>
+        <form class='d-flex'>
+          <button class='btn b' type='submit'>home</button>
+          <button class='btn p' type='submit'>log out</button>
+        </form>
       </div>
     </nav>
   </header>
   <main class='container' style='margin-top: 200px'>";
-getExceptionForm();
-echo "  </main>
-  
-  <script async src='https://cdn.jsdelivr.net/npm/es-module-shims@1/dist/es-module-shims.min.js' crossorigin='anonymous'></script>
-  <script type='importmap'>
-  {
-    \"imports\": {
-    \"@popperjs/core\": \"https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js\",
-      \"bootstrap\": \"https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.esm.min.js\"
-    }
-  }
-  </script>
-  <script type='module'>
-    import * as bootstrap from 'bootstrap'
-
-    const dateSelection = document.getElementsByName('reviewDate');
-    const customDateElement = document.getElementById('customDateCollapse');
-    const customDateCollapse = new bootstrap.Collapse(customDateElement, {'toggle': false});
-    for (let dateSelectionElement of dateSelection) {
-        dateSelectionElement.addEventListener('click', (event) => {
-            event.target.value === 'custom'
-                ? customDateCollapse.show()
-                : customDateCollapse.hide();
-        });
-    }
-  </script>
-</body>
-</html>";
