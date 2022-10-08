@@ -1,4 +1,4 @@
-<form>
+<form class="exception-form">
   <fieldset class='row mb-3 align-items-center'>
     <legend class='col-2 col-form-label'>Review in:</legend>
     <div class="col col-auto">
@@ -15,14 +15,14 @@
         <input type='radio' class="btn-check" name='reviewDate' id='oneYear' value='oneYear' autocomplete='off' required>
         <label class='btn btn-outline-primary m-0' for='oneYear'>1 Year</label>
 
-        <input class="btn-check" name='reviewDate' id="custom" value='custom' type='radio' autocomplete='off' required>
+        <input class="btn-check custom-date-check" name='reviewDate' id="custom" value='custom' type='radio' autocomplete='off' required>
         <label class='btn btn-outline-primary m-0' for='custom'>Custom</label>
       </div>
     </div>
 
     <div class="col-auto">
-      <div class='collapse collapse-horizontal' id="customDateCollapse">
-        <input type='date' placeholder="Choose a date" class='form-control' id='customDateInput' name='customDate' required>
+      <div class='collapse collapse-horizontal custom-date-collapse' id="customDateCollapse">
+        <input type='date' placeholder="Choose a date" class='form-control custom-date-input' id='customDateInput' name='customDate' required>
       </div>
     </div>
   </fieldset>
