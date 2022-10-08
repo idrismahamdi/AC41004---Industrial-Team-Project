@@ -448,7 +448,7 @@ DELIMITER ;exception
 DELIMITER //
 CREATE PROCEDURE get_non_compliant_resource_for_rules(ruleID int, cID int)
 BEGIN
-	SELECT resource.resource_name
+	SELECT resource.resource_name, resource.resource_id
 	FROM resource
 	LEFT JOIN resource_type ON resource.resource_type_id = resource_type.resource_type_id
 	LEFT JOIN rule ON resource_type.resource_type_id = rule.resource_type_id
