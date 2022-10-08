@@ -476,3 +476,20 @@ BEGIN
 END //
 DELIMITER ;
 
+-- gets exceptions for a resource for a rule --
+
+DELIMITER //
+CREATE PROCEDURE get_exceptions_for_resource_for_a_rule(ruleID int, cID int)
+BEGIN
+	SELECT resource.resource_name
+	FROM resource
+	LEFT JOIN resource_type ON resource.resource_type_id = resource_type.resource_type_id
+	LEFT JOIN rule ON resource_type.resource_type_id = rule.resource_type_id
+    LEFT JOIN account ON account.account_id = resource.account_id
+    LEFT JOIN customer ON customer.customer_id = account.account_id
+    LEFT JOIN exception ON exception.resource_id = resource.resource_id
+	WHERE rule.rule_id = ruleID AND customer.customer_id = cID AND exception.resource_id = resource.resource_id;
+END //
+DELIMITER ;
+
+
