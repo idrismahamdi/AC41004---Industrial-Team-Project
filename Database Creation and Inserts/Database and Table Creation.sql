@@ -441,7 +441,7 @@ BEGIN
     LEFT JOIN customer ON customer.customer_id = account.account_id
 	WHERE rule.rule_id = ruleID AND customer.customer_id = cID;
 END //
-DELIMITER ;
+DELIMITER ;exception
 
 -- gets non compliant resources for a rule -- 
 
@@ -456,6 +456,23 @@ BEGIN
     LEFT JOIN customer ON customer.customer_id = account.account_id
     LEFT JOIN non_compliance ON non_compliance.resource_id = resource.resource_id
 	WHERE rule.rule_id = ruleID AND customer.customer_id = cID AND non_compliance.resource_id = resource.resource_id;
+END //
+DELIMITER ;
+
+-- gets exception for a resource -- 
+
+DELIMITER //
+CREATE PROCEDURE get_exception_for_resource(resourceID int, cID int)
+BEGIN
+	SELECT exception.exception_value
+	FROM exception
+    
+	LEFT JOIN resource
+    ON exception.resource_id = resource.resource_id 
+    
+    LEFT JOIN account ON account.account_id = resource.account_id
+    LEFT JOIN customer ON customer.customer_id = account.account_id
+	WHERE resource.resource_id = resourceID AND customer.customer_id = cID;
 END //
 DELIMITER ;
 
