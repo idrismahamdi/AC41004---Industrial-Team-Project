@@ -464,7 +464,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE get_exception_for_resource(resourceID int, cID int)
 BEGIN
-	SELECT exception.exception_value
+	SELECT exception.exception_value, exception.last_updated_by, exception.justification, exception.review_date, exception.last_updated
 	FROM exception
     
 	LEFT JOIN resource
@@ -491,5 +491,7 @@ BEGIN
 	WHERE rule.rule_id = ruleID AND customer.customer_id = cID AND exception.resource_id = resource.resource_id;
 END //
 DELIMITER ;
+
+
 
 
