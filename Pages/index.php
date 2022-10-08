@@ -1,5 +1,3 @@
-<?php
-echo "
 <html lang='en'>
 
 <head>
@@ -28,4 +26,4 @@ echo "
       </div>
     </nav>
   </header>
-  <main class='container' style='margin-top: 200px'>";
+  <main class='container' style='margin-top: 200px'>
