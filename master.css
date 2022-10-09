@@ -1,0 +1,65 @@
+html{
+    background-color: #115E67;
+  }
+
+  body{
+      background-color: #115E67;
+      color: #F1B434;
+      align-items: center;
+  }
+
+  .navbar {
+    background-color: #115E67;
+    border: none;
+  }
+  
+  h1{
+    Text-align: center;
+    font-size:30px;
+  }
+  
+  .b{
+    background-color: #0095C8;
+  }
+  
+  
+  .p{
+    background-color: #AA0061;
+    float: right;
+  }
+  
+  .btn{
+    margin-right: 10px;
+    color: white;
+  }
+  
+  .list-group{
+    max-height: 350px;
+  }
+
+ .main {
+    max-width: 100%;
+    display: block;
+    margin: auto;
+  }
+
+  .progress {
+    display: block;
+    margin: auto;
+    width: 75%;
+    background-color: red;
+  }
+
+  .col{
+    padding: 10px;
+  }
+
+  .container{
+    max-height: 600px;
+  }
+
+  @media (max-width: 650px) {
+    .h-custom {
+       width: 100%;
+    }
+ }
