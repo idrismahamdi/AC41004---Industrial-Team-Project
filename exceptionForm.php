@@ -25,7 +25,7 @@ if (isset($_POST['logout'])) {
 
 <body>
 <header>
-  <nav class="navbar">
+  <nav class="navbar border">
     <div class="container">
       <a class="navbar-brand" href="#">
         <img src="logo.png" height="100px" alt="brightsolid">
@@ -36,7 +36,8 @@ if (isset($_POST['logout'])) {
     </div>
   </nav>
 </header>
-<main class="container">
+<br>
+<main class="container border">
   <?php include "Components/ExceptionForm/exception-form.html"; ?>
 </main>
 <script async src='https://cdn.jsdelivr.net/npm/es-module-shims@1/dist/es-module-shims.min.js' crossorigin='anonymous'></script>
