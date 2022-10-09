@@ -34,7 +34,7 @@ $result = $stmt->fetchAll();
 
 <body>
     <header>
-        <nav class="navbar">
+        <nav class="navbar border">
             <div class="container">
                 <a class="navbar-brand" href="#">
                     <img src="logo.png" height="100px" alt="brightsolid">
@@ -46,7 +46,7 @@ $result = $stmt->fetchAll();
         </nav>
     </header>
     <br>
-    <?php echo '<h1>Welcome to the summary dashboard! <br> You are logged in as: ';
+    <?php echo '<h1>Welcome To The Summary Dashboard! <br> You are logged in as: ';
   echo $_SESSION['user_name'];
   echo '</h1>';
   ?>
@@ -92,7 +92,7 @@ $result = $stmt->fetchAll();
         <br>
 
         <table class="table table-borderless" style="margin-left:auto;margin-right:auto;text-align:center;">
-            <thead class="thead-dark">
+            <thead class="thead-dark" style = "color:#f1b434;font-size:20px;font-weight:bold;text-decoration:underline">
                 <tr>
                     <th scope="col">Compliance</th>
                     <th scope="col">Rule</th>
@@ -131,7 +131,7 @@ $result = $stmt->fetchAll();
 
         echo '
                 </td>
-                <td>
+                <td class = "border" style = "background-color: #f1b434; color: #115E67">
                     <strong>', $row[1], '
                     </strong>
                 </td>

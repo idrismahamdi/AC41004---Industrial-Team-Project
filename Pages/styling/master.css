@@ -39,3 +39,8 @@ h1{
   max-width: 90%;
   margin-left: 60px;
 }
+
+th{
+  color: #f1b434;
+  font-size: 20px;
+}
