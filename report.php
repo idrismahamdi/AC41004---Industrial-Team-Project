@@ -8,7 +8,7 @@ if (isset($_POST['view'])) {
 }
 
 if (isset($_POST['create'])) {
-    header('Location: create.php');
+    header('Location: exceptionForm.php');
     die();
 }
 
