@@ -1,6 +1,14 @@
 <?php
+$resourceID = $resourceDetails["resourceID"];
+$resourceName = $resourceDetails["resourceName"];
+$isCompliant = $resourceDetails["isCompliant"];
+$exceptionCreator = $resourceDetails["exceptionCreator"];
+$exceptionJustification = $resourceDetails["exceptionJustification"];
+$exceptionReviewDate = $resourceDetails["exceptionReviewDate"];
+$hasHistory = $resourceDetails["hasHistory"];
+
 $exceptionBadge = strlen($exceptionCreator) > 0
-    ? "<span class='badge bg-warning'>Exception</span>"
+    ? "<span class='badge bg-danger'>Exception</span>"
     : "";
 $resourceHeader = "<h4 class='col col-auto ".($isCompliant ? "text-success" : "text-danger")."'>$resourceName ".$exceptionBadge."</h4>";
 $reviewDate = strlen($exceptionCreator) > 0
@@ -16,7 +24,7 @@ $exceptionDetails = strlen($exceptionCreator) == 0
     : "<div class='row'>
         <p>An exception has been set by <strong>$exceptionCreator</strong> for the following reason:</p>
         <p>$exceptionJustification</p>
-      </div>"
+      </div>";
 ?>
 
 <div class="row border-bottom mt-3">
