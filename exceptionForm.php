@@ -48,5 +48,6 @@ if (isset($_POST['logout'])) {
     }
   }
 </script>
+<script type="module" src="Components/ExceptionForm/exception-form.js"></script>
 </body>
 </html>
