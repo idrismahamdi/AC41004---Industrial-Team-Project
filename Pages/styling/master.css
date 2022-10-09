@@ -1,0 +1,41 @@
+html{
+  background-color: #115E67;
+}
+
+.navbar{
+  background-color: #115E67;
+}
+
+body{
+    background-color: #115E67;
+    color: white;
+}
+
+main{
+  margin-top: 200px;
+}
+
+h1{
+  Text-align: center;
+  font-size:30px;
+  color: #f1b434;
+}
+.b{
+  background-color: #0095C8;
+}
+
+
+.p{
+  background-color: #AA0061;
+}
+
+.btn{
+  margin-right: 10px;
+  color: white;
+  border-radius: 1.5rem;
+}
+
+.exception-form{
+  max-width: 90%;
+  margin-left: 60px;
+}

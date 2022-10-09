@@ -1,0 +1,7 @@
+{
+  "name": "AC41004---Industrial-Team-Project",
+  "version": "1.0.0",
+  "dependencies": {
+    "bootstrap": "^5.2.2"
+  }
+}
