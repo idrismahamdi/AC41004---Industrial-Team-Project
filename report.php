@@ -127,7 +127,7 @@ if (isset($_POST['logout'])) {
         echo '<tr>';
         echo '<td>', $row[0], '</td>';
         echo '<td>Yes</td>';
-        echo ' <td> <form action="" method="post"><button name="view" value=', $row[0], ' class="btn btn-info">View</button></td> </form>';
+        echo ' <td> <form action="" method="post"><button name="create" value=', $row[0], ' class="btn btn-info">View</button></td> </form>';
         echo '</tr>';
         $countCompliant += 1;
     }
@@ -154,7 +154,7 @@ if (isset($_POST['logout'])) {
             echo '<td>', $non[0], '</td>';
             echo '<td>N/A</td>';
             echo ' <td>
-            <form action="" method="post"> <button name="view" value=', $non[0], ' class="btn btn-info">View</button></td> </form>';
+            <form action="" method="post"> <button name="create" value=', $non[0], ' class="btn btn-info">View</button></td> </form>';
             echo '</tr>';
             $countCompliant += 1;
         }
