@@ -40,7 +40,7 @@ if (!empty($_SESSION['view'])) {
         <nav class="navbar">
             <div class="container">
                 <a class="navbar-brand" href="#">
-                    <img src="logo.png" height="100px" alt="brightsolid">
+                    <img src="logo.png" height="50px" alt="brightsolid">
                 </a>
                 <form action="" method="post">
                     <button name="logout" class="btn p" type="submit">Log Out</button>
@@ -49,11 +49,24 @@ if (!empty($_SESSION['view'])) {
         </nav>
     </header>
 
+    <br>
+    <nav aria-label="breadcrumb" class="main">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="dashboard.php">Summary Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="report.php">Detailed Report</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Exception History</li>
+        </ol>
+    </nav>    
+
+    <br>
     <!--insert name of resource here-->
-    <h1>Exception History of Resource X</h1>
+    <h1>EXCEPTION HISTORY</h1>
+    <h2>of Resource X</h2>
 
 
     <br>
+    <div class="main">
+    <div class="card">
     <table class="container text-center overflow-scroll">
         <?php
 
@@ -107,7 +120,13 @@ if (!empty($_SESSION['view'])) {
         ?>
     </table>
     </div>
-
+    </div>
+    </div>
+    <br>
+    <footer>
+      <p>Visit our website:<br>
+      <a class="footer-link" href="https://www.brightsolid.com/">BrightSolid</a></p>
+    </footer>
 </body>
 
 </html>
