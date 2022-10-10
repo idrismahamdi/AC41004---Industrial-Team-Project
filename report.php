@@ -63,6 +63,7 @@ if (isset($_POST['logout'])) {
     $stmt->execute();
     $result = $stmt->fetchAll();
     $myArr = array();
+    $reviewDate = array();
     $countNonCompliant = 0;
 
     foreach ($result as $row) {
@@ -95,6 +96,7 @@ if (isset($_POST['logout'])) {
             $countNonCompliant += 1;
         } else {
             $myArr[] = $row[0];
+            $reviewDate[] = $row[2];
         }
     }
     echo '</table>';
@@ -128,7 +130,7 @@ if (isset($_POST['logout'])) {
         echo '<tr style = "background-color: #f1b434; color: #115E67">';
         echo '<td>', $myArr[$countCompliant], '</td>';
         echo '<td>Yes</td>';
-        echo '<td>',$myArr[$countCompliant],'</td>';
+        echo '<td>',$reviewDate[$countCompliant],'</td>';
         echo ' <td> <form action="" method="post"><button name="view" value=', $myArr[$countCompliant], ' class="btn btn-info">View</button></td> </form>';
         echo '</tr>';
         $countCompliant += 1;
