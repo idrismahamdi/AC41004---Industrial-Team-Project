@@ -464,17 +464,16 @@ DELIMITER ;
 -- gets exception for a resource -- 
 
 DELIMITER //
-CREATE PROCEDURE get_exception_for_resource(resourceID int, cID int)
+CREATE PROCEDURE get_exception_for_resource(resourceID int, cID int, ruleID int)
 BEGIN
 	SELECT exception.exception_value, user.user_name, exception.justification, exception.review_date, exception.last_updated
 	FROM exception
-	LEFT JOIN resource
-    ON exception.resource_id = resource.resource_id 
-    
+	LEFT JOIN resource ON exception.resource_id = resource.resource_id 
     LEFT JOIN account ON account.account_id = resource.account_id
     LEFT JOIN customer ON customer.customer_id = account.account_id
     LEFT JOIN user ON user.customer_id = customer.customer_id
-	WHERE resource.resource_id = resourceID AND customer.customer_id = cID;
+    LEFT JOIN rule on rule.rule_id = exception.rule_id
+	WHERE resource.resource_id = resourceID AND customer.customer_id = cID and rule.rule_id = ruleID;
 END //
 DELIMITER ;
 
