@@ -35,7 +35,7 @@ if (isset($_POST['logout'])) {
 
 <body>
     <header>
-        <nav class="navbar border">
+        <nav class="navbar">
             <div class="container">
                 <a class="navbar-brand" href="#">
                     <img src="logo.png" height="100px" alt="brightsolid">
@@ -47,13 +47,13 @@ if (isset($_POST['logout'])) {
         </nav>
     </header>
     <br>
-    <?php echo '<h1>Detailed Report Created for Rule ', $_SESSION['rule'];
+    <?php echo '<h1>Detailed report created for rule ', $_SESSION['rule'];
     echo '</h1>';
     ?>
     <br>
     <br>
     <?php
-    echo '<u><h1>Non-Compliant Resources</h1></u>';
+    echo '<h1>Non compliant resources</h1>';
 
 
     $query = ('CALL get_non_compliant_resource_for_rules(:rID, :cID)');
@@ -63,7 +63,6 @@ if (isset($_POST['logout'])) {
     $stmt->execute();
     $result = $stmt->fetchAll();
     $myArr = array();
-    $reviewDate = array();
     $countNonCompliant = 0;
 
     foreach ($result as $row) {
@@ -78,8 +77,9 @@ if (isset($_POST['logout'])) {
 
             if ($countNonCompliant == 0) {
                 echo '
-            <table class="table table-borderless border" style="margin-left:auto;margin-right:auto;text-align:center;">
-                <thead class="thead-dark" style = "color:#f1b434;font-size:20px;font-weight:bold;text-decoration:underline">
+
+            <table class="table table-borderless" style="margin-left:auto;margin-right:auto;text-align:center;">
+                <thead class="thead-dark">
                     <tr>
                     <th scope="col">Resource Name</th>
                     <th scope="col">Exceptions</th>
@@ -87,7 +87,7 @@ if (isset($_POST['logout'])) {
                     </tr>
                 </thead>';
             }
-            echo '<tr style = "background-color: #f1b434; color: #115E67">';
+            echo '<tr>';
             echo '<td>', $row[0], '</td>';
             echo ' <td><form action="" method="post"><button name="view" value=', $row[0], ' class="btn btn-info">View</button></form></td>';
             echo '<td><form action="" method="post"><button name="create" value=', $row[0], ' class="btn btn-info">Create</button> </form></td>';
@@ -95,7 +95,6 @@ if (isset($_POST['logout'])) {
             $countNonCompliant += 1;
         } else {
             $myArr[] = $row[0];
-            $reviewDate[] = $row[2];
         }
     }
     echo '</table>';
@@ -104,7 +103,7 @@ if (isset($_POST['logout'])) {
     }
 
     $i = 0;
-    echo '<u><h1>Compliant resources</h1></u>';
+    echo '<h1>Compliant resources</h1>';
 
     $countCompliant = 0;
     $query = ('CALL get_resource_for_rules(:rID, :cID)');
@@ -116,21 +115,19 @@ if (isset($_POST['logout'])) {
     foreach ($myArr as $item) {
         if ($countCompliant == 0) {
             echo '
-    <table class="table table-borderless border" style="margin-left:auto;margin-right:auto;text-align:center">
-        <thead class="thead-dark" style = "color:#f1b434;font-size:20px;font-weight:bold;text-decoration:underline">
+    <table class="table table-borderless" style="margin-left:auto;margin-right:auto;text-align:center;">
+        <thead class="thead-dark">
             <tr>
                 <th scope="col">Resource Name</th>
                 <th scope="col">Exempt</th>
-                <th scope="col">Review Date</th>
                 <th scope="col">Exceptions</th>
             </tr>
         </thead>';
         }
-        echo '<tr style = "background-color: #f1b434; color: #115E67">';
-        echo '<td>', $myArr[$countCompliant] , '</td>';
+        echo '<tr>';
+        echo '<td>', $row[0], '</td>';
         echo '<td>Yes</td>';
-        echo '<td>', $reviewDate[$countCompliant] ,'</td>';
-        echo ' <td> <form action="" method="post"><button name="view" value=', $myArr[$countCompliant], ' class="btn btn-info">View</button></td> </form>';
+        echo ' <td> <form action="" method="post"><button name="view" value=', $row[0], ' class="btn btn-info">View</button></td> </form>';
         echo '</tr>';
         $countCompliant += 1;
     }
@@ -145,21 +142,19 @@ if (isset($_POST['logout'])) {
             if ($countCompliant == 0) {
                 echo '
         <table class="table table-borderless" style="margin-left:auto;margin-right:auto;text-align:center;">
-            <thead class="thead-dark" style = "color:#f1b434;font-size:20px;font-weight:bold;text-decoration:underline">
+            <thead class="thead-dark">
                 <tr>
                     <th scope="col">Resource Name</th>
                     <th scope="col">Exempt</th>
-                    <th scope="col">Review Date</th>
                     <th scope="col">Exceptions</th>
                 </tr>
             </thead>';
             }
-            echo '<tr style = "background-color: #f1b434; color: #115E67">';
+            echo '<tr>';
             echo '<td>', $non[0], '</td>';
             echo '<td>N/A</td>';
-            echo '<td>N/A</td>';
             echo ' <td>
-            <form action="" method="post"> <button name="view" value=', $non[0], ' class="btn btn-info">View</button></td> </form>';
+            <form action="" method="post"> <button name="create" value=', $non[0], ' class="btn btn-info">View</button></td> </form>';
             echo '</tr>';
             $countCompliant += 1;
         }
@@ -167,7 +162,7 @@ if (isset($_POST['logout'])) {
     echo '</table>';
     if ($countCompliant == 0) {
 
-        echo '<p style="text-align:center">There is no resourses which do comply with this rule</p>';
+        echo '<p style="text-align:center">There is no resourses which do not comply with this rule</p>';
     }
 
 
