@@ -128,9 +128,9 @@ if (isset($_POST['logout'])) {
         </thead>';
         }
         echo '<tr style = "background-color: #f1b434; color: #115E67">';
-        echo '<td>', $myArr[$countCompliant], '</td>';
+        echo '<td>', $myArr[$countCompliant] , '</td>';
         echo '<td>Yes</td>';
-        echo '<td>',$reviewDate[$countCompliant],'</td>';
+        echo '<td>', $reviewDate[$countCompliant] ,'</td>';
         echo ' <td> <form action="" method="post"><button name="view" value=', $myArr[$countCompliant], ' class="btn btn-info">View</button></td> </form>';
         echo '</tr>';
         $countCompliant += 1;
