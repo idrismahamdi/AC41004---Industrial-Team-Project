@@ -28,7 +28,7 @@ if (isset($_POST['logout'])) {
   <nav class="navbar border">
     <div class="container">
       <a class="navbar-brand" href="#">
-        <img src="logo.png" height="100px" alt="brightsolid">
+        <img src="logo.png" height="50px" alt="brightsolid">
       </a>
       <form action="" method="post">
         <button name="logout" class="btn p" type="submit">Log Out</button>
@@ -37,9 +37,21 @@ if (isset($_POST['logout'])) {
   </nav>
 </header>
 <br>
-<main class="container border">
+<nav aria-label="breadcrumb" class="main">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="dashboard.php">Summary Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="report.php">Detailed Report</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Exception Form</li>
+        </ol>
+    </nav> 
+    <br>
+    <h1>CREATE AN EXCEPTION</h1>
+    <br>
+  <div class="main">
+    <div class="card">
   <?php include "Components/ExceptionForm/exception-form.html"; ?>
-</main>
+</div>
+</div>
 <script async src='https://cdn.jsdelivr.net/npm/es-module-shims@1/dist/es-module-shims.min.js' crossorigin='anonymous'></script>
 <script type='importmap'>
   {
@@ -50,5 +62,10 @@ if (isset($_POST['logout'])) {
   }
 </script>
 <script type="module" src="Components/ExceptionForm/exception-form.js"></script>
+<br>
+    <footer>
+      <p>Visit our website:<br>
+      <a class="footer-link" href="https://www.brightsolid.com/">BrightSolid</a></p>
+    </footer>
 </body>
 </html>

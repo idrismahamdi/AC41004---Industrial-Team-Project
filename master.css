@@ -1,65 +1,154 @@
-html{
-    background-color: #115E67;
-  }
+body{
+    background-image: url(https://www.brightsolid.com/wp-content/uploads/2019/12/background-tile-150.jpg);
+    color: #464646;
+    font-family: "Roboto",sans-serif;
+    align-items: center;
+}
 
-  body{
-      background-color: #115E67;
-      color: #F1B434;
-      align-items: center;
-  }
+nav{
+  color: #115E67;
+}
 
-  .navbar {
-    background-color: #115E67;
-    border: none;
-  }
-  
-  h1{
-    Text-align: center;
-    font-size:30px;
-  }
-  
-  .b{
-    background-color: #0095C8;
-  }
-  
-  
-  .p{
-    background-color: #AA0061;
-    float: right;
-  }
-  
-  .btn{
-    margin-right: 10px;
-    color: white;
-  }
-  
-  .list-group{
-    max-height: 350px;
-  }
+.navbar {
+  background-color: white;
+  border: none;
+  box-shadow: 0px 5px 5px #115E67;
+}
 
- .main {
-    max-width: 100%;
+.main {
+  max-width: 90%;
+  display: block;
+  margin: auto;
+}
+
+h1{
+  Text-align: center;
+  font-size:30px;
+  font-weight: bold;
+}
+
+h2{
+  Text-align: center;
+  font-size:20px;
+}
+
+h3{
+  Text-align: left;
+  font-size:20px;
+  font-weight: bold;
+  color: #464646
+}
+
+h4{
+  Text-align: left;
+  font-size:15px;
+  font-weight: bold;
+  color: #115E67;
+}
+
+.card{
+  display: inline-block;
+  width: 100%;
+  padding: 10px;
+  background-color: #f2f2f2;
+}
+
+.small-card-left{
+  display: inline-block;
+  height: 200px;
+  width:45%;
+  padding: 5px;
+}
+
+.small-card-right{
+  display: inline-block;
+  height: 200px;
+  width:45%;
+  padding: 5px;
+}
+
+.b{
+  background-color: #115E67;
+  border: none;
+  border-radius: 10rem;
+}
+
+.btn{
+  color: white;
+  background-color: #115E67;
+}
+
+.list-group{
+  max-height: 350px;
+}
+
+.main {
+  max-width: 80%;
+  display: block;
+  margin: auto;
+}
+
+.progress {
+  display: block;
+  margin: auto;
+  width: 95%;
+  background-color: red;
+}
+
+.progress-bar {
+  display: block;
+  margin: auto;
+  float: left;
+  background-color: green;
+}
+
+.col{
+  padding: 10px;
+}
+
+table{
+  margin-left:auto;
+  margin-right:auto;
+  text-align:center;
+  overflow-y: scroll;
+}
+
+th{
+  color: #115E67;
+  padding: 1rem;
+}
+
+.pie{
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+footer{
+  display: block;
+  background-color: #115E67;
+  color: #f2f2f2;
+  text-align: center;
+  padding:10px;
+}
+
+a{
+  text-decoration: none;
+  color: #115E67;
+}
+
+.footer-link{
+  color: white;
+}
+
+@media (max-width: 650px) {
+  .c-custom{
     display: block;
-    margin: auto;
   }
+}
 
-  .progress {
-    display: block;
-    margin: auto;
-    width: 75%;
-    background-color: white;
+@media (max-width: 650px) {
+  .h-custom {
+     width: 100%;
   }
-
-  .col{
-    padding: 10px;
-  }
-
-  .container{
-    max-height: 600px;
-  }
-
-  @media (max-width: 650px) {
-    .h-custom {
-       width: 100%;
-    }
- }
+}
