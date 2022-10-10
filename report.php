@@ -126,10 +126,10 @@ if (isset($_POST['logout'])) {
         </thead>';
         }
         echo '<tr style = "background-color: #f1b434; color: #115E67">';
-        echo '<td>', $row[0], '</td>';
+        echo '<td>', $myArr[$countCompliant], '</td>';
         echo '<td>Yes</td>';
-        echo '<td>',$row[2],'</td>';
-        echo ' <td> <form action="" method="post"><button name="view" value=', $row[0], ' class="btn btn-info">View</button></td> </form>';
+        echo '<td>',$myArr[$countCompliant],'</td>';
+        echo ' <td> <form action="" method="post"><button name="view" value=', $myArr[$countCompliant], ' class="btn btn-info">View</button></td> </form>';
         echo '</tr>';
         $countCompliant += 1;
     }
