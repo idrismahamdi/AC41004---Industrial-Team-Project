@@ -102,6 +102,7 @@ CREATE TABLE non_compliance_audit (
 CREATE TABLE exception (
 	exception_id serial NOT NULL,
     customer_id BIGINT UNSIGNED NOT NULL,
+    rule_id BIGINT UNSIGNED NOT NULL,
     resource_id BIGINT UNSIGNED NOT NULL,
     last_updated_by BIGINT UNSIGNED NOT NULL,
     exception_value varchar(255) NOT NULL,
@@ -109,7 +110,8 @@ CREATE TABLE exception (
     review_date timestamp NOT NULL,
     last_updated timestamp NOT NULL,
 	 FOREIGN KEY (last_updated_by) REFERENCES user(user_id), /* unsure */
-	FOREIGN KEY (resource_id) REFERENCES resource(resource_id),
+	 FOREIGN KEY (rule_id) REFERENCES rule(rule_id),
+	 FOREIGN KEY (resource_id) REFERENCES resource(resource_id),
 	 FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
      PRIMARY KEY (exception_id)
 );
@@ -138,8 +140,8 @@ CREATE TABLE exception_audit (
 SET FOREIGN_KEY_CHECKS=0;
 INSERT INTO account(account_id,account_ref,platform_id,customer_id) VALUES (1,011072135518,2,1);
 INSERT INTO customer(customer_id,customer_name) VALUES (1,'brightsolid');
-INSERT INTO exception(exception_id,customer_id,resource_id,last_updated_by,exception_value,justification,review_date,last_updated) VALUES (1,1,1144,1,'bs-quorum-dropbox','Enabled by system','2022-12-12 16:23:47','22-09-12 17:25:37');
-INSERT INTO exception(exception_id,customer_id,resource_id,last_updated_by,exception_value,justification,review_date,last_updated) VALUES (3,1,1144,1,'bsol-dev-bakery-assets','Enabled by system','2022-12-12 16:23:47','22-09-12 17:25:37');
+INSERT INTO exception(exception_id,customer_id,rule_id,resource_id,last_updated_by,exception_value,justification,review_date,last_updated) VALUES (1,1,3,1144,1,'bs-quorum-dropbox','Enabled by system','2022-12-12 16:23:47','22-09-12 17:25:37');
+INSERT INTO exception(exception_id,customer_id,rule_id,resource_id,last_updated_by,exception_value,justification,review_date,last_updated) VALUES (3,1,3,1144,1,'bsol-dev-bakery-assets','Enabled by system','2022-12-12 16:23:47','22-09-12 17:25:37');
 
 
 INSERT INTO non_compliance(resource_id,rule_id) VALUES (1269,1);
@@ -433,7 +435,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE get_resource_for_rules(ruleID int, cID int)
 BEGIN
-	SELECT resource.resource_name, reasource.resource_id
+	SELECT resource.resource_name
 	FROM resource
 	LEFT JOIN resource_type ON resource.resource_type_id = resource_type.resource_type_id
 	LEFT JOIN rule ON resource_type.resource_type_id = rule.resource_type_id
@@ -441,22 +443,20 @@ BEGIN
     LEFT JOIN customer ON customer.customer_id = account.account_id
 	WHERE rule.rule_id = ruleID AND customer.customer_id = cID;
 END //
-DELIMITER ;
+DELIMITER ;exception
 
 -- gets non compliant resources for a rule -- 
 
 DELIMITER //
 CREATE PROCEDURE get_non_compliant_resource_for_rules(ruleID int, cID int)
 BEGIN
-	SELECT resource.resource_name, resource.resource_id, exception.review_date
+	SELECT resource.resource_name
 	FROM resource
 	LEFT JOIN resource_type ON resource.resource_type_id = resource_type.resource_type_id
 	LEFT JOIN rule ON resource_type.resource_type_id = rule.resource_type_id
     LEFT JOIN account ON account.account_id = resource.account_id
     LEFT JOIN customer ON customer.customer_id = account.account_id
     LEFT JOIN non_compliance ON non_compliance.resource_id = resource.resource_id
-        LEFT JOIN exception ON exception.resource_id = resource.resource_id
-
 	WHERE rule.rule_id = ruleID AND customer.customer_id = cID AND non_compliance.resource_id = resource.resource_id;
 END //
 DELIMITER ;
@@ -464,16 +464,17 @@ DELIMITER ;
 -- gets exception for a resource -- 
 
 DELIMITER //
-CREATE PROCEDURE get_exception_for_resource(resourceID int, cID int, ruleID int)
+CREATE PROCEDURE get_exception_for_resource(resourceID int, cID int)
 BEGIN
-	SELECT exception.exception_value, user.user_name, exception.justification, exception.review_date, exception.last_updated
+	SELECT exception.exception_value
 	FROM exception
-	LEFT JOIN resource ON exception.resource_id = resource.resource_id 
+    
+	LEFT JOIN resource
+    ON exception.resource_id = resource.resource_id 
+    
     LEFT JOIN account ON account.account_id = resource.account_id
     LEFT JOIN customer ON customer.customer_id = account.account_id
-    LEFT JOIN user ON user.customer_id = customer.customer_id
-    LEFT JOIN rule on rule.rule_id = exception.rule_id
-	WHERE resource.resource_id = resourceID AND customer.customer_id = cID and rule.rule_id = ruleID;
+	WHERE resource.resource_id = resourceID AND customer.customer_id = cID;
 END //
 DELIMITER ;
 
@@ -493,7 +494,40 @@ BEGIN
 END //
 DELIMITER ;
 
+DROP PROCEDURE get_exception_for_resource;
+DELIMITER //
+CREATE PROCEDURE get_exception_for_resource(resourceID int, cID int, ruleID int)
+BEGIN
+	SELECT exception.exception_value, user.user_name, exception.justification, exception.review_date, exception.last_updated
+	FROM exception
+	LEFT JOIN resource ON exception.resource_id = resource.resource_id 
+    LEFT JOIN account ON account.account_id = resource.account_id
+    LEFT JOIN customer ON customer.customer_id = account.account_id
+    LEFT JOIN user ON user.customer_id = customer.customer_id
+    LEFT JOIN rule on rule.rule_id = exception.rule_id
+	WHERE resource.resource_id = resourceID AND customer.customer_id = cID and rule.rule_id = ruleID;
+END //
+DELIMITER ;
 
+-- suspend exception --
+DELIMITER //
+CREATE PROCEDURE suspend_exception(exceptionID int, cID int)
+BEGIN
+	INSERT INTO exception_audit (exception_id,user_id,customer_id,rule_id,action,action_dt) SELECT exception_id,last_updated_by,customer_id,rule_id,"SUSPEND",NOW() FROM exception WHERE exception.exception_id = exceptionID AND exception.customer_id = cID; 
+    DELETE FROM exception WHERE exception_ID = exceptionID; 
+END //
+DELIMITER ;
+
+-- update exception -- 
+
+DELIMITER //
+CREATE PROCEDURE update_exception(exceptionID int, cID int, NewReviewDate timestamp, NewJustification varchar(255))
+BEGIN
+	INSERT INTO exception_audit (exception_id,user_id,customer_id,rule_id,action,action_dt,new_review_date,new_justification,old_review_date,old_justification) SELECT exception_id,last_updated_by,customer_id,rule_id,"UPDATE",NOW(),NewReviewDate,NewJustification,review_date,justification FROM exception WHERE exception.exception_id = exceptionID AND exception.customer_id = cID; 
+    UPDATE exception SET review_date = NewReviewDate, justification = NewJustification, last_updated_by = cID, last_updated = NOW() WHERE exception_ID = exceptionID;
+    #last update by is being set to the customer ID but might actually supposed to be USER ID
+END //
+DELIMITER ;
 
 
 
