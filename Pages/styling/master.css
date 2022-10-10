@@ -20,6 +20,12 @@ h1{
   font-size:30px;
   color: #f1b434;
 }
+h2{
+  Text-align: center;
+  font-size:20px;
+  color: #f1b434;
+  text-decoration: underline;
+}
 .b{
   background-color: #0095C8;
 }
@@ -38,4 +44,9 @@ h1{
 .exception-form{
   max-width: 90%;
   margin-left: 60px;
+}
+
+th{
+  color: #f1b434;
+  font-size: 20px;
 }
