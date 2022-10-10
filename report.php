@@ -63,6 +63,7 @@ if (isset($_POST['logout'])) {
     $stmt->execute();
     $result = $stmt->fetchAll();
     $myArr = array();
+    $reviewDate = array();
     $countNonCompliant = 0;
 
     foreach ($result as $row) {
@@ -94,6 +95,7 @@ if (isset($_POST['logout'])) {
             $countNonCompliant += 1;
         } else {
             $myArr[] = $row[0];
+            $reviewDate[] = $row[2];
         }
     }
     echo '</table>';
@@ -119,14 +121,16 @@ if (isset($_POST['logout'])) {
             <tr>
                 <th scope="col">Resource Name</th>
                 <th scope="col">Exempt</th>
+                <th scope="col">Review Date</th>
                 <th scope="col">Exceptions</th>
             </tr>
         </thead>';
         }
         echo '<tr style = "background-color: #f1b434; color: #115E67">';
-        echo '<td>', $row[0], '</td>';
+        echo '<td>', $myArr[$countCompliant] , '</td>';
         echo '<td>Yes</td>';
-        echo ' <td> <form action="" method="post"><button name="view" value=', $row[0], ' class="btn btn-info">View</button></td> </form>';
+        echo '<td>', $reviewDate[$countCompliant] ,'</td>';
+        echo ' <td> <form action="" method="post"><button name="view" value=', $myArr[$countCompliant], ' class="btn btn-info">View</button></td> </form>';
         echo '</tr>';
         $countCompliant += 1;
     }
@@ -145,6 +149,7 @@ if (isset($_POST['logout'])) {
                 <tr>
                     <th scope="col">Resource Name</th>
                     <th scope="col">Exempt</th>
+                    <th scope="col">Review Date</th>
                     <th scope="col">Exceptions</th>
                 </tr>
             </thead>';
@@ -152,8 +157,9 @@ if (isset($_POST['logout'])) {
             echo '<tr style = "background-color: #f1b434; color: #115E67">';
             echo '<td>', $non[0], '</td>';
             echo '<td>N/A</td>';
+            echo '<td>N/A</td>';
             echo ' <td>
-            <form action="" method="post"> <button name="create" value=', $non[0], ' class="btn btn-info">View</button></td> </form>';
+            <form action="" method="post"> <button name="view" value=', $non[0], ' class="btn btn-info">View</button></td> </form>';
             echo '</tr>';
             $countCompliant += 1;
         }
@@ -161,7 +167,7 @@ if (isset($_POST['logout'])) {
     echo '</table>';
     if ($countCompliant == 0) {
 
-        echo '<p style="text-align:center">There is no resourses which do not comply with this rule</p>';
+        echo '<p style="text-align:center">There is no resourses which do comply with this rule</p>';
     }
 
 
