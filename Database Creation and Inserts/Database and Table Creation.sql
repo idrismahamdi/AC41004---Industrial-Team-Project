@@ -435,7 +435,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE get_resource_for_rules(ruleID int, cID int)
 BEGIN
-	SELECT resource.resource_name
+	SELECT resource.resource_name, resource.resource_id
 	FROM resource
 	LEFT JOIN resource_type ON resource.resource_type_id = resource_type.resource_type_id
 	LEFT JOIN rule ON resource_type.resource_type_id = rule.resource_type_id
@@ -450,7 +450,7 @@ DELIMITER ;exception
 DELIMITER //
 CREATE PROCEDURE get_non_compliant_resource_for_rules(ruleID int, cID int)
 BEGIN
-	SELECT resource.resource_name
+	SELECT resource.resource_name, resource.resource_id
 	FROM resource
 	LEFT JOIN resource_type ON resource.resource_type_id = resource_type.resource_type_id
 	LEFT JOIN rule ON resource_type.resource_type_id = rule.resource_type_id
@@ -461,44 +461,14 @@ BEGIN
 END //
 DELIMITER ;
 
--- gets exception for a resource -- 
-
-DELIMITER //
-CREATE PROCEDURE get_exception_for_resource(resourceID int, cID int)
-BEGIN
-	SELECT exception.exception_value
-	FROM exception
-    
-	LEFT JOIN resource
-    ON exception.resource_id = resource.resource_id 
-    
-    LEFT JOIN account ON account.account_id = resource.account_id
-    LEFT JOIN customer ON customer.customer_id = account.account_id
-	WHERE resource.resource_id = resourceID AND customer.customer_id = cID;
-END //
-DELIMITER ;
 
 -- gets exceptions for a resource for a rule --
 
-DELIMITER //
-CREATE PROCEDURE get_exceptions_for_resource_for_a_rule(ruleID int, cID int)
-BEGIN
-	SELECT resource.resource_name, resource.resource_id, exception.review_date
-	FROM resource
-	LEFT JOIN resource_type ON resource.resource_type_id = resource_type.resource_type_id
-	LEFT JOIN rule ON resource_type.resource_type_id = rule.resource_type_id
-    LEFT JOIN account ON account.account_id = resource.account_id
-    LEFT JOIN customer ON customer.customer_id = account.account_id
-    LEFT JOIN exception ON exception.resource_id = resource.resource_id
-	WHERE rule.rule_id = ruleID AND customer.customer_id = cID AND exception.resource_id = resource.resource_id;
-END //
-DELIMITER ;
 
-DROP PROCEDURE get_exception_for_resource;
 DELIMITER //
 CREATE PROCEDURE get_exception_for_resource(resourceID int, cID int, ruleID int)
 BEGIN
-	SELECT exception.exception_value, user.user_name, exception.justification, exception.review_date, exception.last_updated
+	SELECT exception.exception_value, exception.review_date, exception.last_updated, exception.resource_id
 	FROM exception
 	LEFT JOIN resource ON exception.resource_id = resource.resource_id 
     LEFT JOIN account ON account.account_id = resource.account_id
@@ -506,6 +476,19 @@ BEGIN
     LEFT JOIN user ON user.customer_id = customer.customer_id
     LEFT JOIN rule on rule.rule_id = exception.rule_id
 	WHERE resource.resource_id = resourceID AND customer.customer_id = cID and rule.rule_id = ruleID;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE get_exceptions(resourceID int, cID int)
+BEGIN
+	SELECT exception.exception_value, exception.review_date, exception.last_updated, exception.resource_id, exception.exception_id
+	FROM exception
+	LEFT JOIN resource ON exception.resource_id = resource.resource_id 
+    LEFT JOIN account ON account.account_id = resource.account_id
+    LEFT JOIN customer ON customer.customer_id = account.account_id
+    LEFT JOIN user ON user.customer_id = customer.customer_id
+	WHERE resource.resource_id = resourceID AND customer.customer_id = cID;
 END //
 DELIMITER ;
 
@@ -529,5 +512,25 @@ BEGIN
 END //
 DELIMITER ;
 
+DELIMITER //
+CREATE PROCEDURE get_exceptions_for_resource_for_a_rule(ruleID int, cID int)
+BEGIN
+	SELECT resource.resource_name, resource.resource_id, exception.review_date
+	FROM resource
+	LEFT JOIN resource_type ON resource.resource_type_id = resource_type.resource_type_id
+	LEFT JOIN rule ON resource_type.resource_type_id = rule.resource_type_id
+    LEFT JOIN account ON account.account_id = resource.account_id
+    LEFT JOIN customer ON customer.customer_id = account.account_id
+    LEFT JOIN exception ON exception.resource_id = resource.resource_id
+	WHERE rule.rule_id = ruleID AND customer.customer_id = cID AND exception.resource_id = resource.resource_id;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE get_rule_details(rID int)
+BEGIN
+SELECT rule_name, rule_description FROM rule WHERE rule.rule_id = rID;
+END //
+DELIMITER ;
 
 
