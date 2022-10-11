@@ -105,7 +105,8 @@ if (isset($_POST['logout'])) {
                         $countNonCompliant += 1;
                     } else {
                         $myArr[] = $row[0];
-                        $reviewDate[] = $test[2];
+                        $reviewDate[] = $test[1];
+                        $lastUpdated[] = $test[2];
                     }
                 }
                 echo '</table>';
@@ -133,6 +134,7 @@ if (isset($_POST['logout'])) {
                     <th scope="col">Resource Name</th>
                     <th scope="col">Exempt</th>
                     <th scope="col">Review Date</th>
+                    <th scope="col">Last Updated</th>
                     <th scope="col">Exceptions</th>
                 </tr>
                 </thead>';
@@ -141,6 +143,7 @@ if (isset($_POST['logout'])) {
                     echo '<td>', $myArr[$countCompliant], '</td>';
                     echo '<td>Yes</td>';
                     echo '<td>', $reviewDate[$countCompliant], '</td>';
+                    echo '<td>', $lastUpdated[$countCompliant], '</td>';
                     echo ' <td> <form action="" method="post"><button name="view" value=', $myArr[$countCompliant], ' class="btn btn-info">View</button></td> </form>';
                     echo '</tr></div>';
                     $countCompliant += 1;
@@ -161,6 +164,7 @@ if (isset($_POST['logout'])) {
                     <th scope="col">Resource Name</th>
                     <th scope="col">Exempt</th>
                     <th scope="col">Review Date</th>
+                    <th scope="col">Last Updated</th>
                     <th scope="col">Exceptions</th>
                 </tr>
             </thead>';
