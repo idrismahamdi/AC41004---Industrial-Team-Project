@@ -3,6 +3,7 @@ require "connection.php";
 session_start();
 
 if (isset($_POST['view'])) {
+    $_SESSION['view'] = $_POST['view'];
     header('Location: view.php');
     die();
 }
@@ -55,8 +56,19 @@ if (isset($_POST['logout'])) {
     </nav>
     <br>
     <h1>DETAILED REPORT<h1>
-            <?php echo '<h2>Created for Rule ', $_SESSION['rule'];
+
+
+            <?php
+
+            $query = ('CALL get_rule_details(:rID)');
+            $stmt = $mysql->prepare($query);
+            $stmt->bindValue(':rID', $_SESSION['rule']);
+            $stmt->execute();
+            $result = $stmt->fetch();
+            echo '<h2>Created for Rule ', $result[0];
             echo '</h2>';
+            echo '<p>', $result[1];
+            echo '</p>';
             ?>
             <br>
             <div class="main">
@@ -99,14 +111,15 @@ if (isset($_POST['logout'])) {
                         }
                         echo '<tr>';
                         echo '<td>', $row[0], '</td>';
-                        echo ' <td><form action="" method="post"><button name="view" value=', $row[0], ' class="btn btn-info">View</button></form></td>';
-                        echo '<td><form action="" method="post"><button name="create" value=', $row[0], ' class="btn btn-info">Create</button> </form></td>';
+                        echo ' <td><form action="" method="post"><button name="view" value=', $row[1], ' class="btn btn-info">View</button></form></td>';
+                        echo '<td><form action="" method="post"><button name="create" value=', $row[1], ' class="btn btn-info">Create</button> </form></td>';
                         echo '</tr>';
                         $countNonCompliant += 1;
                     } else {
                         $myArr[] = $row[0];
                         $reviewDate[] = $test[1];
                         $lastUpdated[] = $test[2];
+                        $resourceID[] =  $test[3];
                     }
                 }
                 echo '</table>';
@@ -144,7 +157,7 @@ if (isset($_POST['logout'])) {
                     echo '<td>Yes</td>';
                     echo '<td>', $reviewDate[$countCompliant], '</td>';
                     echo '<td>', $lastUpdated[$countCompliant], '</td>';
-                    echo ' <td> <form action="" method="post"><button name="view" value=', $myArr[$countCompliant], ' class="btn btn-info">View</button></td> </form>';
+                    echo ' <td> <form action="" method="post"><button name="view" value=', $resourceID[$countCompliant], ' class="btn btn-info">View</button></td> </form>';
                     echo '</tr></div>';
                     $countCompliant += 1;
                 }
@@ -174,9 +187,7 @@ if (isset($_POST['logout'])) {
                         echo '<td>N/A</td>';
                         echo '<td>N/A</td>';
                         echo '<td>N/A</td>';
-
-                        echo ' <td>
-            <form action="" method="post"> <button name="view" value=', $non[0], ' class="btn btn-info">View</button></td> </form>';
+                        echo ' <td> <form action="" method="post"> <button name="view" value=', $non[1], ' class="btn btn-info">View</button></td> </form>';
                         echo '</tr>';
                         $countCompliant += 1;
                     }
