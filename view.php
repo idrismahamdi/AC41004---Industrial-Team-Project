@@ -11,7 +11,13 @@ if (isset($_POST['logout'])) {
     die();
 }
 
+if (isset($_POST['suspend'])) {
+    $query = ('CALL suspend_exception(:rID,1)');
 
+    $stmt = $mysql->prepare($query);
+    $stmt->bindValue(':rID', $_POST['suspend']);
+    $stmt->execute();
+}
 ?>
 <!doctype html>
 <html>
@@ -102,10 +108,14 @@ if (isset($_POST['logout'])) {
             ', $row[4], '
             </td>
             <td>
-                <button name="report" value=', $row[0], ' class="btn btn-info">Update</button>  
+            <form action="" method="post">
+                <button name="report" value=', $row[0], ' class="btn btn-info">Update</button> 
+                <form action="" method="post">
             </td>
             <td>
-                <button name="report" value=', $row[0], ' class="btn btn-info">Suspend</button>  
+            <form action="" method="post">
+                <button name="suspend" value=', $row[4], ' class="btn btn-info">Suspend</button>  
+                <form action="" method="post">
             </td>
    
         </tr>
