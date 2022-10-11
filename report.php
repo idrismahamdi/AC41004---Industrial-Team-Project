@@ -173,6 +173,8 @@ if (isset($_POST['logout'])) {
                         echo '<td>', $non[0], '</td>';
                         echo '<td>N/A</td>';
                         echo '<td>N/A</td>';
+                        echo '<td>N/A</td>';
+
                         echo ' <td>
             <form action="" method="post"> <button name="view" value=', $non[0], ' class="btn btn-info">View</button></td> </form>';
                         echo '</tr>';
