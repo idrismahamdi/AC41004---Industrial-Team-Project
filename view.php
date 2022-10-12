@@ -73,7 +73,7 @@ if (isset($_POST['update'])) {
     $stmt->execute();
     $result = $stmt->fetch();
 
-    echo ' <h2>of Resource', $result, '</h2>'; ?>
+    echo ' <h2>of Resource ', $result[0], '</h2>'; ?>
 
 
 
