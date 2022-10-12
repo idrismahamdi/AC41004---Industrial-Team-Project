@@ -2,10 +2,17 @@
 require "connection.php";
 session_start();
 
+if ($_SESSION['user_role'] == 2) {
+    echo '<script type="text/javascript">';
+    echo 'alert("You do not have permission to update an exception");';
+    echo 'window.location.href = "view.php";';
+    echo '</script>';}
+
 if ($_SESSION['loggedin'] == false) {
     header('Location: login.php');
     die();
 }
+
 if (isset($_POST['logout'])) {
     session_destroy();
     header('Location: login.php');
@@ -28,10 +35,10 @@ if (isset($_POST['submit'])) {
     $current = new DateTime('now');
     $current = $current->format('Y-m-d h:i:s');
 
-    $query = ("CALL update_exception(:eID,:cID,:reviewDate,:justify);");
+    $query = ("CALL update_exception(:eID,:uID,:reviewDate,:justify);");
     $stmt = $mysql->prepare($query);
     $stmt->bindValue(':eID', $_SESSION['update']);
-    $stmt->bindValue(':cID', 1);
+    $stmt->bindValue(':uID', $_SESSION['user_id']);
     $stmt->bindValue(':justify', $_POST['justifcation']);
     $stmt->bindValue(':reviewDate', $date);
     $stmt->execute();
