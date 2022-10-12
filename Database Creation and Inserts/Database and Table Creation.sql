@@ -119,6 +119,7 @@ CREATE TABLE exception (
 CREATE TABLE exception_audit (
 	exception_audit_id serial NOT NULL,
     exception_id int(4) NOT NULL,
+    resource_id BIGINT UNSIGNED NOT NULL,
     user_id BIGINT UNSIGNED NOT NULL,
     customer_id BIGINT UNSIGNED NOT NULL,
     rule_id BIGINT UNSIGNED NOT NULL,
@@ -140,6 +141,7 @@ CREATE TABLE exception_audit (
 SET FOREIGN_KEY_CHECKS=0;
 INSERT INTO account(account_id,account_ref,platform_id,customer_id) VALUES (1,011072135518,2,1);
 INSERT INTO customer(customer_id,customer_name) VALUES (1,'brightsolid');
+
 INSERT INTO exception(exception_id,customer_id,rule_id,resource_id,last_updated_by,exception_value,justification,review_date,last_updated) VALUES (1,1,3,1144,1,'bs-quorum-dropbox','Enabled by system','2022-12-12 16:23:47','22-09-12 17:25:37');
 INSERT INTO exception(exception_id,customer_id,rule_id,resource_id,last_updated_by,exception_value,justification,review_date,last_updated) VALUES (3,1,3,1144,1,'bsol-dev-bakery-assets','Enabled by system','2022-12-12 16:23:47','22-09-12 17:25:37');
 
