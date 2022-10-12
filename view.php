@@ -116,12 +116,12 @@ if (isset($_POST['update'])) {
             </td>
             <td>
             <form action="" method="post">
-                <button name="update" value=', $row[4], ' class="btn btn-info">Update</button> 
+                <button name="update" value=', $row[5], ' class="btn btn-info">Update</button> 
                 <form action="" method="post">
             </td>
             <td>
             <form action="" method="post">
-                <button name="suspend" value=', $row[4], ' class="btn btn-info">Suspend</button>  
+                <button name="suspend" value=', $row[5], ' class="btn btn-info">Suspend</button>  
                 <form action="" method="post">
             </td>
    
@@ -131,7 +131,7 @@ if (isset($_POST['update'])) {
                 }
 
                 if ($count == 0) {
-                    echo '<p style="text-align:center">There is no exception history for this resource.</p>';
+                    echo '<p style="text-align:center">There is no current exceptions for this resource.</p>';
                 }
 
                 ?>
