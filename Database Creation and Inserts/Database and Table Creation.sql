@@ -520,7 +520,8 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE get_Exception_History_For_Resource(cID int, rID int)
 BEGIN
-	SELECT * FROM exception_audit WHERE customer_id = cID AND resource_id = rID;
+
+	SELECT action, action_dt, old_exception_value, new_exception_value, old_justifcation, new_justification, old_review_date, new_review_date FROM exception_audit WHERE customer_id = cID AND resource_id = rID;
 END //
 DELIMITER ;
 
