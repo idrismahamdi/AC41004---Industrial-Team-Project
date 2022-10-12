@@ -21,7 +21,6 @@ if (isset($_POST['suspend'])) {
 
 if (isset($_POST['update'])) {
     $_SESSION['update'] = $_POST['update'];
-    session_destroy();
     header('Location: update.php');
     die();
 }
