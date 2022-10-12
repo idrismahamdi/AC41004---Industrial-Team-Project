@@ -25,7 +25,6 @@ if (isset($_POST['submit'])) {
         $date->modify('+12 month');
     }
     $date = $date->format('Y-m-d h:i:s');
-    echo $date;
     $current = new DateTime('now');
     $current = $current->format('Y-m-d h:i:s');
 
@@ -39,7 +38,7 @@ if (isset($_POST['submit'])) {
 
     echo '<script type="text/javascript">';
     echo 'alert("Exception Updated");';
-    echo 'window.location.href = "dashboard.php";';
+    echo 'window.location.href = "view.php";';
     echo '</script>';
 }
 
