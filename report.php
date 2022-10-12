@@ -9,7 +9,8 @@ if (isset($_POST['view'])) {
 }
 
 if (isset($_POST['create'])) {
-    header('Location: exceptionForm.php');
+    $_SESSION['create'] = $_POST['create'];
+    header('Location: create.php');
     die();
 }
 
