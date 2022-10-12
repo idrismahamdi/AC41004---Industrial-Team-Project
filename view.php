@@ -64,7 +64,17 @@ if (isset($_POST['update'])) {
     <br>
     <!--insert name of resource here-->
     <h1>EXCEPTIONS</h1>
-    <h2>of Resource X</h2>
+    <?php
+    $query = ('SELECT resource_name FROM resource WHERE resource_id = :rID');
+
+    $stmt = $mysql->prepare($query);
+    $stmt->bindValue(':rID', $_SESSION['view']);
+
+    $stmt->execute();
+    $result = $stmt->fetch();
+
+    echo ' <h2>of Resource', $result, '</h2>'; ?>
+
 
 
     <br>
@@ -73,12 +83,14 @@ if (isset($_POST['update'])) {
             <table class="container text-center overflow-scroll">
                 <?php
 
-                $query = ('CALL get_exceptions(:rID,1)');
+                $query = ('CALL get_exceptions(:rID,:cID)');
                 if (!empty($_SESSION['view'])) {
 
 
                     $stmt = $mysql->prepare($query);
                     $stmt->bindValue(':rID', $_SESSION['view']);
+                    $stmt->bindValue(':cID', $_SESSION['cID']);
+
                     $stmt->execute();
                     $result = $stmt->fetchAll();
                 }
@@ -87,6 +99,7 @@ if (isset($_POST['update'])) {
                 foreach ($result as $row) {
 
                     if ($count == 0) {
+
                         echo '    <h1>CURRENT EXCEPTIONS</h1>
                         <tr>
             <th>Rule</th>
@@ -114,8 +127,10 @@ if (isset($_POST['update'])) {
             <td>
             ', $row[4], '
             </td>
-            <td>
-            <form action="" method="post">
+            <td>';
+                    if ($_SESSION['user_role'] == 1) {
+
+                        echo ' <form action="" method="post">
                 <button name="update" value=', $row[5], ' class="btn btn-info">Update</button> 
                 <form action="" method="post">
             </td>
@@ -125,8 +140,8 @@ if (isset($_POST['update'])) {
                 <form action="" method="post">
             </td>
    
-        </tr>
-        ';
+        </tr> ';
+                    }
                     $count += 1;
                 }
 
@@ -148,10 +163,11 @@ if (isset($_POST['update'])) {
             <table class="container text-center overflow-scroll">
                 <?php
 
-                $query = ('CALL get_Exception_History_For_Resource(1,:rID)');
+                $query = ('CALL get_Exception_History_For_Resource(:cID,:rID)');
                 if (!empty($_SESSION['view'])) {
                     $stmt = $mysql->prepare($query);
                     $stmt->bindValue(':rID', $_SESSION['view']);
+                    $stmt->bindValue(':cID', $_SESSION['cID']);
                     $stmt->execute();
                     $result = $stmt->fetchAll();
                 }
