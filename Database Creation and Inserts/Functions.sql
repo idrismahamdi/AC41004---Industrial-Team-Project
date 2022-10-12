@@ -106,32 +106,21 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE suspend_exception(exceptionID int, cID int)
 BEGIN
-	INSERT INTO exception_audit (exception_id,user_id,customer_id,rule_id,action,action_dt) SELECT exception_id,last_updated_by,customer_id,rule_id,"SUSPEND",NOW() FROM exception WHERE exception.exception_id = exceptionID AND exception.customer_id = cID; 
+	INSERT INTO exception_audit (exception_id,user_id,customer_id,rule_id,action,action_dt,resource_id) SELECT exception_id,last_updated_by,customer_id,rule_id,"SUSPEND",NOW(),resource_id FROM exception WHERE exception.exception_id = exceptionID AND exception.customer_id = cID; 
     DELETE FROM exception WHERE exception_ID = exceptionID; 
 END //
 DELIMITER ;
-
 
 -- update exception -- 
 
 DELIMITER //
 CREATE PROCEDURE update_exception(exceptionID int, cID int, NewReviewDate timestamp, NewJustification varchar(255))
 BEGIN
-	INSERT INTO exception_audit (exception_id,user_id,customer_id,rule_id,action,action_dt,new_review_date,new_justification,old_review_date,old_justification) SELECT exception_id,last_updated_by,customer_id,rule_id,"UPDATE",NOW(),NewReviewDate,NewJustification,review_date,justification FROM exception WHERE exception.exception_id = exceptionID AND exception.customer_id = cID; 
+	INSERT INTO exception_audit (exception_id,user_id,customer_id,rule_id,action,action_dt,new_review_date,new_justification,old_review_date,old_justification,resource_id) SELECT exception_id,last_updated_by,customer_id,rule_id,"UPDATE",NOW(),NewReviewDate,NewJustification,review_date,justification,resource_id FROM exception WHERE exception.exception_id = exceptionID AND exception.customer_id = cID; 
     UPDATE exception SET review_date = NewReviewDate, justification = NewJustification, last_updated_by = cID, last_updated = NOW() WHERE exception_ID = exceptionID;
     #last update by is being set to the customer ID but might actually supposed to be USER ID
 END //
 DELIMITER ;
-
--- create exception --
-
-DELIMITER //
-CREATE PROCEDURE create_exception(exceptionID int, cID int)
-BEGIN
-
-END //
-DELIMITER ;
-
 
 -- get history for all exceptions of a resource -- 
 
