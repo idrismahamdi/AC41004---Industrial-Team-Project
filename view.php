@@ -63,7 +63,7 @@ if (isset($_POST['update'])) {
 
     <br>
     <!--insert name of resource here-->
-    <h1>EXCEPTION HISTORY</h1>
+    <h1>EXCEPTIONS</h1>
     <h2>of Resource X</h2>
 
 
@@ -87,7 +87,8 @@ if (isset($_POST['update'])) {
                 foreach ($result as $row) {
 
                     if ($count == 0) {
-                        echo '<tr>
+                        echo '    <h1>CURRENT EXCEPTIONS</h1>
+                        <tr>
             <th>Rule</th>
             <th>Last Updated By</th>
             <th>Justification</th>
@@ -135,6 +136,86 @@ if (isset($_POST['update'])) {
 
                 ?>
             </table>
+
+
+
+        </div>
+    </div>
+
+
+    <div class="main">
+        <div class="card">
+            <table class="container text-center overflow-scroll">
+                <?php
+
+                $query = ('CALL get_Exception_History_For_Resource(1,:rID)');
+                if (!empty($_SESSION['view'])) {
+                    $stmt = $mysql->prepare($query);
+                    $stmt->bindValue(':rID', $_SESSION['view']);
+                    $stmt->execute();
+                    $result = $stmt->fetchAll();
+                }
+
+                $count = 0;
+                foreach ($result as $row) {
+
+                    if ($count == 0) {
+                        if (($row[3] == NULL) || ($row[6] == NULL)) {
+                            $row[3] = 'N/A';
+                            $row[5] = 'N/A';
+                        }
+                        echo '    <h1>HISTORIC EXCEPTIONS</h1>
+                        <tr>
+                    
+            <th>Action</th>
+            <th>Date of Action</th>
+            <th>Exception Value</th>
+            <th>New Justifcation</th>
+            <th>Old Justifcation</th>
+            <th>New Review Date</th>
+            <th>Old Review Date</th>
+            
+        </tr>';
+                    }
+
+                    echo '
+        <tr>
+            <td>
+                ', $row[0], '
+            </td>
+            <td>
+            ', $row[1], '
+            </td>
+            <td>
+            ', $row[2], '
+            </td>
+            <td>
+            ', $row[3], '
+            </td>
+            <td>
+            ', $row[4], '
+            </td>
+            <td>
+            ', $row[5], '
+            </td>
+            <td>
+            ', $row[6], '
+            </td>
+   
+        </tr>
+        ';
+                    $count += 1;
+                }
+
+                if ($count == 0) {
+                    echo '<p style="text-align:center">There is no exception history for this resource.</p>';
+                }
+
+                ?>
+            </table>
+
+
+
         </div>
     </div>
     </div>
