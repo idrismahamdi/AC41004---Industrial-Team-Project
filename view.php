@@ -18,6 +18,13 @@ if (isset($_POST['suspend'])) {
     $stmt->bindValue(':rID', $_POST['suspend']);
     $stmt->execute();
 }
+
+if (isset($_POST['update'])) {
+    $_SESSION['update'] = $_POST['update'];
+    session_destroy();
+    header('Location: update.php');
+    die();
+}
 ?>
 <!doctype html>
 <html>
@@ -109,7 +116,7 @@ if (isset($_POST['suspend'])) {
             </td>
             <td>
             <form action="" method="post">
-                <button name="report" value=', $row[0], ' class="btn btn-info">Update</button> 
+                <button name="update" value=', $row[4], ' class="btn btn-info">Update</button> 
                 <form action="" method="post">
             </td>
             <td>
