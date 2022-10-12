@@ -81,7 +81,7 @@ if (isset($_POST['logout'])) {
                 $query = ('CALL get_non_compliant_resource_for_rules(:rID, :cID)');
                 $stmt = $mysql->prepare($query);
                 $stmt->bindValue(':rID', $_SESSION['rule']);
-                $stmt->bindValue(':cID', 1);
+                $stmt->bindValue(':cID', $_SESSION['cID']);
                 $stmt->execute();
                 $result = $stmt->fetchAll();
                 $myArr = array();
@@ -94,7 +94,7 @@ if (isset($_POST['logout'])) {
                     $stmt = $mysql->prepare($query);
                     $stmt->bindValue(':resourceID', $row[1]);
                     $stmt->bindValue(':rID', $_SESSION['rule']);
-                    $stmt->bindValue(':cID', 1);
+                    $stmt->bindValue(':cID', $_SESSION['cID']);
                     $stmt->execute();
                     $test = $stmt->fetch();
                     if (empty($test)) {
@@ -136,7 +136,7 @@ if (isset($_POST['logout'])) {
                 $query = ('CALL get_resource_for_rules(:rID, :cID)');
                 $stmt = $mysql->prepare($query);
                 $stmt->bindValue(':rID', $_SESSION['rule']);
-                $stmt->bindValue(':cID', 1);
+                $stmt->bindValue(':cID', $_SESSION['cID']);
                 $stmt->execute();
                 $noncompliant = $stmt->fetchAll();
                 foreach ($myArr as $item) {
