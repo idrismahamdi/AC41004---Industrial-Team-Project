@@ -2,6 +2,12 @@
 require "connection.php";
 session_start();
 
+if ($_SESSION['user_role'] == 2) {
+    echo '<script type="text/javascript">';
+    echo 'alert("You do not have permission to create an exception");';
+    echo 'window.location.href = "view.php";';
+    echo '</script>';}
+
 if ($_SESSION['loggedin'] == false) {
     header('Location: login.php');
     die();
@@ -29,16 +35,16 @@ if (isset($_POST['submit'])) {
     $current = new DateTime('now');
     $current = $current->format('Y-m-d h:i:s');
 
-    $query = ("INSERT INTO exception(exception_id,customer_id,rule_id,resource_id,last_updated_by,exception_value,justification,review_date,last_updated) VALUES (NULL,:cID,:ruleID,:resourceID,1,'bsol-dev-bakery-assets',:justify,:reviewDate,:lastUpdated);");
+    $query = ("INSERT INTO exception(exception_id,customer_id,rule_id,resource_id,last_updated_by,exception_value,justification,review_date,last_updated) VALUES (NULL,:cID,:ruleID,:resourceID,:lastupdatedby,'bsol-dev-bakery-assets',:justify,:reviewDate,:lastUpdated);");
     $stmt = $mysql->prepare($query);
-    $stmt->bindValue(':cID', 1);
+    $stmt->bindValue(':cID', $_SESSION['cID']);
     $stmt->bindValue(':resourceID', $_SESSION['create']);
     $stmt->bindValue(':ruleID', $_SESSION['rule']);
     $stmt->bindValue(':justify', $_POST['justifcation']);
     $stmt->bindValue(':reviewDate', $date);
     $stmt->bindValue(':lastUpdated', $current);
+    $stmt->bindValue(':lastupdatedby', $_SESSION['user_name']);
     $stmt->execute();
-
     echo '<script type="text/javascript">';
     echo 'alert("Exception Added");';
     echo 'window.location.href = "dashboard.php";';
