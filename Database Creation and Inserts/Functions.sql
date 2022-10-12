@@ -131,3 +131,13 @@ BEGIN
 
 END //
 DELIMITER ;
+
+
+-- get history for all exceptions of a resource -- 
+
+DELIMITER //
+CREATE PROCEDURE get_Exception_History_For_Resource(cID int, rID int)
+BEGIN
+	SELECT * FROM exception_audit WHERE customer_id = cID AND resource_id = rID;
+END //
+DELIMITER ;
