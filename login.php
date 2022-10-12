@@ -1,9 +1,6 @@
 <?php
 require "connection.php";
 
-
-
-
 if (isset($_POST['submit'])) {
     //execute sql query to see if the admin is on the database
     try {
@@ -32,7 +29,7 @@ if (isset($_POST['submit'])) {
             LEFT JOIN user ON customer.customer_id = user.customer_id
             WHERE user.user_id = (:uID);');
             $stmt = $mysql->prepare($query);
-            $stmt->bindParam(":uID", $_POST['user_id']);
+            $stmt->bindParam(":uID", $_SESSION['user_id']);
             $stmt->execute();
             $result = $stmt->fetch();
             $_SESSION['cID'] = $result[0];
