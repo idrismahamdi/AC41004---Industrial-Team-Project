@@ -1,6 +1,9 @@
 <?php
 require "connection.php";
 
+
+
+
 if (isset($_POST['submit'])) {
     //execute sql query to see if the admin is on the database
     try {
@@ -21,6 +24,18 @@ if (isset($_POST['submit'])) {
             $result = $stmt->fetch();
             $_SESSION['user_name'] = $result[1];
             $_SESSION['user_role'] = $result[3];
+            $_SESSION['user_id'] = $result[0];
+
+
+
+            $query = ('SELECT customer.customer_id FROM customer 
+            LEFT JOIN user ON customer.customer_id = user.customer_id
+            WHERE user.user_id = (:uID);');
+            $stmt = $mysql->prepare($query);
+            $stmt->bindParam(":uID", $_POST['user_id']);
+            $stmt->execute();
+            $result = $stmt->fetch();
+            $_SESSION['cID'] = $result[0];
             header('Location: dashboard.php');
             die();
         } else {
@@ -54,7 +69,7 @@ if (isset($_POST['submit'])) {
 <body>
 
     <header>
-        <img src="logo2.png" height="150px" alt="brightsolid" class="w-custom h-custom">
+        <img src="logo.png" height="150px" alt="brightsolid" class="w-custom h-custom">
     </header>
 
     <h1>Cloud Compliance Dashboard Login</h1>
