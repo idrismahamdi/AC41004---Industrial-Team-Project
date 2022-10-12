@@ -34,10 +34,10 @@ $result = $stmt->fetchAll();
 
 <body>
     <header>
-        <nav class="navbar border">
+        <nav class="navbar">
             <div class="container">
                 <a class="navbar-brand" href="#">
-                    <img src="logo.png" height="50px" alt="brightsolid">
+                    <img src="logo.png" height="100px" alt="brightsolid">
                 </a>
                 <form action="" method="post">
                     <button name="logout" class="btn p" type="submit">Log Out</button>
@@ -46,12 +46,12 @@ $result = $stmt->fetchAll();
         </nav>
     </header>
     <br>
+    <?php echo '<h1>Welcome to the summary dashboard! <br> You are logged in as: ';
 
-    <h1>SUMMARY DASHBOARD</h1>
-    <?php echo '<h2>You are logged in as: ';
   echo $_SESSION['user_name'];
-  echo '</h2>';
+  echo '</h1>';
   ?>
+    <br>
     <br>
     <?php
   $j = 0;
@@ -61,13 +61,13 @@ $result = $stmt->fetchAll();
     $query = ('CALL get_non_compliant_resource_for_rules(:rID, :cID)');
     $stmt = $mysql->prepare($query);
     $stmt->bindValue(':rID', $row[0]);
-    $stmt->bindValue(':cID', 1);
+    $stmt->bindValue(':cID', $_SESSION['cID']);
     $stmt->execute();
     $complies = $stmt->fetchAll();
     $query = ('CALL get_exceptions_for_resource_for_a_rule(:rID, :cID)');
     $stmt = $mysql->prepare($query);
     $stmt->bindValue(':rID', $row[0]);
-    $stmt->bindValue(':cID', 1);
+    $stmt->bindValue(':cID', $_SESSION['cID']);
     $stmt->execute();
     $exempt = $stmt->fetchAll();
 
@@ -77,88 +77,76 @@ $result = $stmt->fetchAll();
     $j = $j + 1;
   }
   $i = ($i / $j) * 100;
-  $h = ($i / $j) * 360;
-
   ?>
 
     <div class="main h.custom">
-        <div class="card">
-          <h3>OVERALL COMPLIANCE</h3>
-          <!--COMPLIANCE PROGRESS BAR - %COMPLIANCE-->
-          <div class="progress" style="height: 30px;">
-              <!--ARIA-VALUENOW == NUMBER/PERCENTAGE COMPLIANT-->
-              <!--sTYLE WIDTH == NUMBER/PERCENTAGE COMPLIANT-->
-              <!--ARIA-VALUEMAX == TOTAL COMPLIANT RESOURCES/ 100 PERCENT-->
-              <div class="progress-bar progress-bar-striped progress-bar-animated role="progressbar"
-                  aria-label="Compliance Progress Bar" style="width: <?php echo $i; ?>%; height: 30px;"
-                  aria-valuenow='<?php echo $i; ?>;' aria-valuemin="0" aria-valuemax="100">
-                  <?php echo $i; ?>% compliant
-              </div>
-          </div>
+        <!--COMPLIANCE PROGRESS BAR - %COMPLIANCE-->
+        <div class="progress" style="height: 30px;">
+            <!--ARIA-VALUENOW == NUMBER/PERCENTAGE COMPLIANT-->
+            <!--sTYLE WIDTH == NUMBER/PERCENTAGE COMPLIANT-->
+            <!--ARIA-VALUEMAX == TOTAL COMPLIANT RESOURCES/ 100 PERCENT-->
+            <div class="progress-bar progress-bar-striped progress-bar-animated role=" progressbar"
+                aria-label="Compliance Progress Bar" style="width: <?php echo $i; ?>%; height: 30px;"
+                aria-valuenow='<?php echo $i; ?>;' aria-valuemin="0" aria-valuemax="100">
+                <?php echo $i; ?>% compliant</div>
         </div>
-
-        <br>
         <br>
 
-        <div class="card">
-          <table class="table table-borderless">
-              <thead class="thead-dark">
-                  <tr>
-                      <th scope="col">Compliance</th>
-                      <th scope="col">Rule</th>
-                      <th scope="col">Detailed Report</th>
-                  </tr>
-              </thead>
+        <table class="table table-borderless" style="margin-left:auto;margin-right:auto;text-align:center;">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Compliance</th>
+                    <th scope="col">Rule</th>
+                    <th scope="col">Detailed Report</th>
+                </tr>
+            </thead>
 
-              <?php
-
-
-              foreach ($result as $row) {
-
-                echo '  <tr>
-                        <td>';
-
-                $query = ('CALL get_non_compliant_resource_for_rules(:rID, :cID)');
-                $stmt = $mysql->prepare($query);
-                $stmt->bindValue(':rID', $row[0]);
-                $stmt->bindValue(':cID', 1);
-                $stmt->execute();
-                $complies = $stmt->fetchAll();
-
-                $query = ('CALL get_exceptions_for_resource_for_a_rule(:rID, :cID)');
-                $stmt = $mysql->prepare($query);
-                $stmt->bindValue(':rID', $row[0]);
-                $stmt->bindValue(':cID', 1);
-                $stmt->execute();
-                $exempt = $stmt->fetchAll();
+            <?php
 
 
-                if (empty($complies[0]) || !empty($exempt)) {
-                  echo '<img src="compliant.png" height="40px" alt="brightsolid">';
-                } else {
-                  echo '<img src="non-compliant.png" height="40px" alt="brightsolid">';
-                }
+      foreach ($result as $row) {
 
-                echo '
-                        </td>
-                        <td>
-                            <strong>', $row[1], '</strong>
-                        </td>
-                        <td>  <form action="" method="post">
-                        <button name="report" value=', $row[0], ' class="btn btn-info">Create</button>
-                        </form>
-                        </td>
-                        </tr>';
-              }
-              ?>
-          </table>
-        </div>
+        echo '  <tr>
+                <td>';
+
+        $query = ('CALL get_non_compliant_resource_for_rules(:rID, :cID)');
+        $stmt = $mysql->prepare($query);
+        $stmt->bindValue(':rID', $row[0]);
+        $stmt->bindValue(':cID', $_SESSION['cID']);
+        $stmt->execute();
+        $complies = $stmt->fetchAll();
+
+        $query = ('CALL get_exceptions_for_resource_for_a_rule(:rID, :cID)');
+        $stmt = $mysql->prepare($query);
+        $stmt->bindValue(':rID', $row[0]);
+        $stmt->bindValue(':cID', $_SESSION['cID']);
+        $stmt->execute();
+        $exempt = $stmt->fetchAll();
+
+
+        if (empty($complies[0]) || !empty($exempt)) {
+          echo '<img src="compliant.png" height="40px" alt="brightsolid">';
+        } else {
+          echo '<img src="non-compliant.png" height="40px" alt="brightsolid">';
+        }
+
+        echo '
+                </td>
+                <td>
+                    <strong>', $row[1], '
+                    </strong>
+                </td>
+                <td>  <form action="" method="post">
+                <button name="report" value=', $row[0], ' class="btn btn-info">Create</button>
+                </form>
+                 </td>
+                </tr>';
+      }
+      ?>
+
+
+        </table>
     </div>
-    <br>
-    <footer>
-      <p>Visit our website:<br>
-      <a class="footer-link" href="https://www.brightsolid.com/">BrightSolid</a></p>
-    </footer>
 
 </body>
 
