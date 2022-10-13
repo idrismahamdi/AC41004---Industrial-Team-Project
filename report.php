@@ -107,7 +107,8 @@ if (isset($_POST['logout'])) {
                     <th scope="col">Exceptions</th>
                     <th scope="col">Create an Exception</th>
                     </tr>
-                </thead>';
+                </thead>
+                <tbody>';
                         }
                         echo '<tr>';
                         echo '<td>', $row[0], '</td>';
@@ -122,7 +123,7 @@ if (isset($_POST['logout'])) {
                         $resourceID[] =  $test[3];
                     }
                 }
-                echo '</table>';
+                echo '</tbody></table>';
                 if ($countNonCompliant == 0) {
                     echo '<p>There is no resourses which do not comply with this rule</p>';
                 }
@@ -150,7 +151,8 @@ if (isset($_POST['logout'])) {
                     <th scope="col">Last Updated</th>
                     <th scope="col">Exceptions</th>
                 </tr>
-                </thead>';
+                </thead>
+                <tbody>';
                     }
                     echo '<tr>';
                     echo '<td>', $myArr[$countCompliant], '</td>';
@@ -158,7 +160,7 @@ if (isset($_POST['logout'])) {
                     echo '<td>', $reviewDate[$countCompliant], '</td>';
                     echo '<td>', $lastUpdated[$countCompliant], '</td>';
                     echo ' <td> <form action="" method="post"><button name="view" value=', $resourceID[$countCompliant], ' class="btn btn-info">View</button></td> </form>';
-                    echo '</tr></div>';
+                    echo '</tr>';
                     $countCompliant += 1;
                 }
 
@@ -180,7 +182,8 @@ if (isset($_POST['logout'])) {
                     <th scope="col">Last Updated</th>
                     <th scope="col">Exceptions</th>
                 </tr>
-            </thead>';
+            </thead>
+            <tbody>';
                         }
                         echo '<tr>';
                         echo '<td>', $non[0], '</td>';
@@ -192,16 +195,14 @@ if (isset($_POST['logout'])) {
                         $countCompliant += 1;
                     }
                 }
-                echo '</table>';
+                echo '</tbody></table>';
                 if ($countCompliant == 0) {
 
-                    echo '<p style="text-align:center">There is no resourses which do comply with this rule</p></div>';
+                    echo '<p style="text-align:center">There is no resourses which do comply with this rule</p>';
                 }
 
                 ?>
-
-
-                </table>
+              </div>
             </div>
             <br>
             <footer>
