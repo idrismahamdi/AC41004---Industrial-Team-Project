@@ -24,7 +24,7 @@ if (isset($_POST['logout'])) {
     die();
 } ?>
 <!doctype html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -56,7 +56,7 @@ if (isset($_POST['logout'])) {
         </ol>
     </nav>
     <br>
-    <h1>DETAILED REPORT<h1>
+    <h1>DETAILED REPORT</h1>
 
             <div class="main">
             <?php
