@@ -81,6 +81,7 @@ if (isset($_POST['submit'])) {
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="dashboard.php">Summary Dashboard</a></li>
             <li class="breadcrumb-item"><a href="report.php">Detailed Report</a></li>
+            <li class="breadcrumb-item"><a href="view.php">Exception History</a></li>
             <li class="breadcrumb-item active" aria-current="page">Exception Form</li>
         </ol>
     </nav>
@@ -147,9 +148,8 @@ if (isset($_POST['submit'])) {
     <script type="module" src="Components/ExceptionForm/exception-form.js"></script>
     <br>
     <footer>
-        <p>Visit our website:<br>
+        Visit our website:<br>
             <a class="footer-link" href="https://www.brightsolid.com/">BrightSolid</a>
-        </p>
     </footer>
 </body>
 

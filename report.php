@@ -58,7 +58,7 @@ if (isset($_POST['logout'])) {
     <br>
     <h1>DETAILED REPORT<h1>
 
-
+            <div class="main">
             <?php
 
             $query = ('CALL get_rule_details(:rID)');
@@ -72,10 +72,9 @@ if (isset($_POST['logout'])) {
             echo '</p>';
             ?>
             <br>
-            <div class="main">
 
                 <?php
-                echo '<h1>NON-COMPLIANT RESOURCES</h1>';
+                echo '<h3>NON-COMPLIANT RESOURCES</h3>';
 
                 echo '<div class="card">';
                 $query = ('CALL get_non_compliant_resource_for_rules(:rID, :cID)');
@@ -129,7 +128,7 @@ if (isset($_POST['logout'])) {
                 }
                 echo '</div><br>';
                 $i = 0;
-                echo '<br><h1>COMPLIANT RESOURCES</h1>';
+                echo '<br><h3>COMPLIANT RESOURCES</h3>';
                 echo '<div class="card">';
 
                 $countCompliant = 0;
@@ -208,9 +207,8 @@ if (isset($_POST['logout'])) {
             </div>
             <br>
             <footer>
-                <p>Visit our website:<br>
+                Visit our website:<br>
                     <a class="footer-link" href="https://www.brightsolid.com/">BrightSolid</a>
-                </p>
             </footer>
 </body>
 

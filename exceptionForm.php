@@ -107,8 +107,8 @@ if (isset($_POST['logout'])) {
 <script type="module" src="Components/ExceptionForm/exception-form.js"></script>
 <br>
     <footer>
-      <p>Visit our website:<br>
-      <a class="footer-link" href="https://www.brightsolid.com/">BrightSolid</a></p>
+      Visit our website:<br>
+      <a class="footer-link" href="https://www.brightsolid.com/">BrightSolid</a>
     </footer>
 </body>
 </html>

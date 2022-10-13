@@ -37,7 +37,7 @@ $result = $stmt->fetchAll();
         <nav class="navbar">
             <div class="container">
                 <a class="navbar-brand" href="#">
-                    <img src="logo.png" height="100px" alt="brightsolid">
+                    <img src="logo.png" height="50px" alt="brightsolid">
                 </a>
                 <form action="" method="post">
                     <button name="logout" class="btn p" type="submit">Log Out</button>
@@ -46,10 +46,10 @@ $result = $stmt->fetchAll();
         </nav>
     </header>
     <br>
-    <?php echo '<h1>Welcome to the summary dashboard! <br> You are logged in as: ';
-
+    <h1>SUMMARY DASHBOARD</h1>
+    <?php echo '<h2>You are logged in as: ';
   echo $_SESSION['user_name'];
-  echo '</h1>';
+  echo '</h2>';
   ?>
     <br>
     <br>
@@ -91,7 +91,7 @@ $result = $stmt->fetchAll();
                 <?php echo $i; ?>% compliant</div>
         </div>
         <br>
-
+      <div class="card">
         <table class="table table-borderless" style="margin-left:auto;margin-right:auto;text-align:center;">
             <thead class="thead-dark">
                 <tr>
@@ -147,7 +147,12 @@ $result = $stmt->fetchAll();
 
         </table>
     </div>
-
+    </div>
+    <br>
+    <footer>
+            Visit our website:<br>
+            <a class="footer-link" href="https://www.brightsolid.com/">BrightSolid</a>
+    </footer>
 </body>
 
 </html>

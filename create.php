@@ -150,9 +150,8 @@ if (isset($_POST['submit'])) {
     <script type="module" src="Components/ExceptionForm/exception-form.js"></script>
     <br>
     <footer>
-        <p>Visit our website:<br>
+        Visit our website:<br>
             <a class="footer-link" href="https://www.brightsolid.com/">BrightSolid</a>
-        </p>
     </footer>
 </body>
 
