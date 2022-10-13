@@ -1,4 +1,4 @@
-<form class="exception-form">
+<form class="exception-form" action="" method="post">
   <fieldset class='row mb-3 align-items-center'>
     <legend class='col-2 col-form-label'><strong><u>Review in:</u></strong></legend>
     <div class="col col-auto">
@@ -29,16 +29,16 @@
 
   <div class='row mb-3 justify-content-start'>
     <div class='col-2'>
-      <label for='justification' class='form-label'><strong><u>Justification:</strong></u></label>
+      <label for='justification' class='form-label'><strong><u>Justification:</u></strong></label>
     </div>
     <div class='col'>
-      <textarea class='form-control' id='justification' rows='4' required></textarea>
+      <textarea class='form-control' id='justification' name="justification" rows='4' required></textarea>
     </div>
   </div>
 
-  <div class="row mb-3 justify-content-start">
+  <div class=" row mb-3 justify-content-start">
     <div class="col offset-2">
-      <button class="btn btn-primary col" type="submit">Create exception</button>
+      <button class="btn btn-primary col" name="submit" type="submit">Create exception</button>
     </div>
   </div>
 </form>

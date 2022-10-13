@@ -26,7 +26,7 @@ if (isset($_POST['update'])) {
 }
 ?>
 <!doctype html>
-<html>
+<html lang="en">
 
 <head>
 
@@ -189,8 +189,8 @@ if (isset($_POST['update'])) {
             <th>Action</th>
             <th>Date of Action</th>
             <th>Exception Value</th>
-            <th>New Justifcation</th>
-            <th>Old Justifcation</th>
+            <th>New Justification</th>
+            <th>Old Justification</th>
             <th>New Review Date</th>
             <th>Old Review Date</th>
             <th>User</th>
