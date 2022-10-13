@@ -203,8 +203,6 @@ if (isset($_POST['logout'])) {
 
                 </table>
             </div>
-            </div>
-            </div>
             <br>
             <footer>
                 Visit our website:<br>

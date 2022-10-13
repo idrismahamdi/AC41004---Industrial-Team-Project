@@ -85,7 +85,7 @@ $result = $stmt->fetchAll();
             <!--ARIA-VALUENOW == NUMBER/PERCENTAGE COMPLIANT-->
             <!--sTYLE WIDTH == NUMBER/PERCENTAGE COMPLIANT-->
             <!--ARIA-VALUEMAX == TOTAL COMPLIANT RESOURCES/ 100 PERCENT-->
-            <div class="progress-bar progress-bar-striped progress-bar-animated role=" progressbar"
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
                 aria-label="Compliance Progress Bar" style="width: <?php echo $i; ?>%; height: 30px;"
                 aria-valuenow='<?php echo $i; ?>;' aria-valuemin="0" aria-valuemax="100">
                 <?php echo $i; ?>% compliant</div>
