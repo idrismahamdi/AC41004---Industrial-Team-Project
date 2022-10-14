@@ -71,7 +71,7 @@ $result = $stmt->fetchAll();
     $stmt->execute();
     $exempt = $stmt->fetchAll();
 
-    if (empty($complies[0]) || !empty($exempt)) {
+    if (empty($complies[0]) || (count($exempt) == count($complies))) {
       $i = $i + 1;
     }
     $j = $j + 1;
@@ -82,55 +82,52 @@ $result = $stmt->fetchAll();
     <div class="main h.custom">
         <!--COMPLIANCE PROGRESS BAR - %COMPLIANCE-->
         <div class="progress" style="height: 30px;">
-            <!--ARIA-VALUENOW == NUMBER/PERCENTAGE COMPLIANT-->
-            <!--sTYLE WIDTH == NUMBER/PERCENTAGE COMPLIANT-->
-            <!--ARIA-VALUEMAX == TOTAL COMPLIANT RESOURCES/ 100 PERCENT-->
             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
                 aria-label="Compliance Progress Bar" style="width: <?php echo $i; ?>%; height: 30px;"
                 aria-valuenow='<?php echo $i; ?>;' aria-valuemin="0" aria-valuemax="100">
                 <?php echo $i; ?>% compliant</div>
         </div>
         <br>
-      <div class="card">
-        <table class="table table-borderless" style="margin-left:auto;margin-right:auto;text-align:center;">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Compliance</th>
-                    <th scope="col">Rule</th>
-                    <th scope="col">Detailed Report</th>
-                </tr>
-            </thead>
+        <div class="card">
+            <table class="table table-borderless" style="margin-left:auto;margin-right:auto;text-align:center;">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Compliance</th>
+                        <th scope="col">Rule</th>
+                        <th scope="col">Detailed Report</th>
+                    </tr>
+                </thead>
 
-            <?php
+                <?php
 
 
-      foreach ($result as $row) {
+        foreach ($result as $row) {
 
-        echo '  <tr>
+          echo '  <tr>
                 <td>';
 
-        $query = ('CALL get_non_compliant_resource_for_rules(:rID, :cID)');
-        $stmt = $mysql->prepare($query);
-        $stmt->bindValue(':rID', $row[0]);
-        $stmt->bindValue(':cID', $_SESSION['cID']);
-        $stmt->execute();
-        $complies = $stmt->fetchAll();
+          $query = ('CALL get_non_compliant_resource_for_rules(:rID, :cID)');
+          $stmt = $mysql->prepare($query);
+          $stmt->bindValue(':rID', $row[0]);
+          $stmt->bindValue(':cID', $_SESSION['cID']);
+          $stmt->execute();
+          $complies = $stmt->fetchAll();
 
-        $query = ('CALL get_exceptions_for_resource_for_a_rule(:rID, :cID)');
-        $stmt = $mysql->prepare($query);
-        $stmt->bindValue(':rID', $row[0]);
-        $stmt->bindValue(':cID', $_SESSION['cID']);
-        $stmt->execute();
-        $exempt = $stmt->fetchAll();
+          $query = ('CALL get_exceptions_for_resource_for_a_rule(:rID, :cID)');
+          $stmt = $mysql->prepare($query);
+          $stmt->bindValue(':rID', $row[0]);
+          $stmt->bindValue(':cID', $_SESSION['cID']);
+          $stmt->execute();
+          $exempt = $stmt->fetchAll();
 
 
-        if (empty($complies[0]) || !empty($exempt)) {
-          echo '<img src="compliant.png" height="40px" alt="brightsolid">';
-        } else {
-          echo '<img src="non-compliant.png" height="40px" alt="brightsolid">';
-        }
+          if (empty($complies[0]) || (count($exempt) == count($complies))) {
+            echo '<img src="compliant.png" height="40px" alt="brightsolid">';
+          } else {
+            echo '<img src="non-compliant.png" height="40px" alt="brightsolid">';
+          }
 
-        echo '
+          echo '
                 </td>
                 <td>
                     <strong>', $row[1], '
@@ -141,17 +138,17 @@ $result = $stmt->fetchAll();
                 </form>
                  </td>
                 </tr>';
-      }
-      ?>
+        }
+        ?>
 
 
-        </table>
-    </div>
+            </table>
+        </div>
     </div>
     <br>
     <footer>
-            Visit our website:<br>
-            <a class="footer-link" href="https://www.brightsolid.com/">BrightSolid</a>
+        Visit our website:<br>
+        <a class="footer-link" href="https://www.brightsolid.com/">BrightSolid</a>
     </footer>
 </body>
 
