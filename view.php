@@ -79,7 +79,7 @@ if (isset($_POST['update'])) {
 
     <br>
     <div class="main">
-    <h3>CURRENT EXCEPTIONS</h3>
+        <h3>CURRENT EXCEPTIONS</h3>
         <div class="card">
             <table class="container text-center overflow-scroll">
                 <?php
@@ -179,7 +179,7 @@ if (isset($_POST['update'])) {
                 foreach ($result as $row) {
 
                     if ($count == 0) {
-                        if (($row[3] == NULL) || ($row[6] == NULL)) {
+                        if (($row[3] == NULL) || ($row[5] == NULL)) {
                             $row[3] = 'N/A';
                             $row[5] = 'N/A';
                         }
@@ -245,8 +245,8 @@ if (isset($_POST['update'])) {
     </div>
     <br>
     <footer>
-            Visit our website:<br>
-            <a class="footer-link" href="https://www.brightsolid.com/">BrightSolid</a>
+        Visit our website:<br>
+        <a class="footer-link" href="https://www.brightsolid.com/">BrightSolid</a>
     </footer>
 </body>
 
