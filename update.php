@@ -23,10 +23,10 @@ if (isset($_POST['submit'])) {
     $date = new DateTime('now');
     if ($_POST['reviewDate'] == "oneMonth") {
         $date->modify('+1 month'); // or you can use '-90 day' for deduct
-    } else if ($_POST['reviewDate'] == "threeMonth") {
+    } else if ($_POST['reviewDate'] == "threeMonths") {
 
         $date->modify('+3 month');
-    } else  if ($_POST['reviewDate'] == "sixMonth") {
+    } else  if ($_POST['reviewDate'] == "sixMonths") {
         $date->modify('+6 month');
     } else if ($_POST['reviewDate'] == "oneYear") {
         $date->modify('+12 month');
