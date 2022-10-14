@@ -120,7 +120,7 @@ CREATE TABLE exception_audit (
 	exception_audit_id serial NOT NULL,
     exception_id int(4) NOT NULL,
     resource_id BIGINT UNSIGNED NOT NULL,
-    user_id BIGINT UNSIGNED NOT NULL,
+    user_id BIGINT UNSIGNED,
     customer_id BIGINT UNSIGNED NOT NULL,
     rule_id BIGINT UNSIGNED NOT NULL,
     action varchar(255) NOT NULL,
@@ -142,8 +142,7 @@ SET FOREIGN_KEY_CHECKS=0;
 INSERT INTO account(account_id,account_ref,platform_id,customer_id) VALUES (1,011072135518,2,1);
 INSERT INTO customer(customer_id,customer_name) VALUES (1,'brightsolid');
 
-INSERT INTO exception(exception_id,customer_id,rule_id,resource_id,last_updated_by,exception_value,justification,review_date,last_updated) VALUES (1,1,3,1144,1,'bs-quorum-dropbox','Enabled by system','2022-12-12 16:23:47','22-09-12 17:25:37');
-INSERT INTO exception(exception_id,customer_id,rule_id,resource_id,last_updated_by,exception_value,justification,review_date,last_updated) VALUES (3,1,3,1144,1,'bsol-dev-bakery-assets','Enabled by system','2022-12-12 16:23:47','22-09-12 17:25:37');
+INSERT INTO exception(exception_id,customer_id,rule_id,resource_id,last_updated_by,exception_value,justification,review_date,last_updated) VALUES (1,1,3,1144,1,'bs-quorum-dropbox','Enabled by system','2021-12-12 16:23:47','22-09-12 17:25:37');
 
 
 INSERT INTO non_compliance(resource_id,rule_id) VALUES (1269,1);
@@ -403,6 +402,7 @@ INSERT INTO rule(rule_id,rule_name,resource_type_id,rule_description) VALUES (7,
 INSERT INTO rule(rule_id,rule_name,resource_type_id,rule_description) VALUES (8,'lambda-detect-unauthorised-public-function',7,'If a developer creates an AWS Lambda function and attaches the instance to a public subnet (e.g. a subnet which is addressable to/from the internet) then the developer and compliance team are notified');
 
 INSERT INTO user(user_id,user_name,user_password,role_id,customer_id) VALUES (1,'system','d500c78015d9082c251eeb52e488e16aeab865d4e423b3fd2246127e4816b38f',1,1);
+INSERT INTO user(user_id,user_name,user_password,role_id,customer_id) VALUES (2,'auditor','d500c78015d9082c251eeb52e488e16aeab865d4e423b3fd2246127e4816b38f',2,1);
 
 INSERT INTO user_role(user_role_id,user_role_name) VALUES (1,'system');
 INSERT INTO user_role(user_role_id,user_role_name) VALUES (2,'auditor');
@@ -490,8 +490,8 @@ BEGIN
 	LEFT JOIN resource ON exception.resource_id = resource.resource_id 
     LEFT JOIN account ON account.account_id = resource.account_id
     LEFT JOIN customer ON customer.customer_id = account.account_id
-    LEFT JOIN user ON user.customer_id = customer.customer_id
-	WHERE resource.resource_id = resourceID AND customer.customer_id = cID;
+    LEFT JOIN user ON user.user_id = exception.last_updated_by
+	WHERE resource.resource_id = 1144 AND customer.customer_id = 1;
 END //
 
 DELIMITER ;
@@ -504,6 +504,17 @@ BEGIN
     DELETE FROM exception WHERE exception_ID = exceptionID; 
 END //
 DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE expired_exception(exceptionID int)
+BEGIN
+	INSERT INTO exception_audit (exception_id,customer_id,rule_id,action,action_dt,resource_id, old_exception_value, old_justification, old_review_date, new_justification) SELECT exception_id,customer_id,rule_id,"EXPIRED",NOW(),resource_id, exception_value, justification, review_date, "N/A" FROM exception WHERE exception.exception_id = exceptionID; 
+    DELETE FROM exception WHERE exception_ID = exceptionID; 
+END //
+DELIMITER ;
+
+
+
 
 -- update exception -- 
 
@@ -524,8 +535,9 @@ BEGIN
 
 	SELECT action, action_dt, old_exception_value, new_justification, old_justification, new_review_date, old_review_date, user.user_name FROM exception_audit
     LEFT JOIN user ON user.user_id AND exception_audit.user_id
-    WHERE exception_audit.customer_id = cID AND exception_audit.resource_id = rID
+    WHERE exception_audit.customer_id = cID AND exception_audit.resource_id = rID 
     ORDER BY action_dt DESC;
+
 END //
 DELIMITER ;
 
@@ -549,4 +561,3 @@ BEGIN
 SELECT rule_name, rule_description FROM rule WHERE rule.rule_id = rID;
 END //
 DELIMITER ;
-
