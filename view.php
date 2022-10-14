@@ -178,11 +178,14 @@ if (isset($_POST['update'])) {
                 $count = 0;
                 foreach ($result as $row) {
 
+                    if (($row[3] == NULL) || ($row[5] == NULL)) {
+                        $row[3] = 'N/A';
+                        $row[5] = 'N/A';
+                    }
+                
+
                     if ($count == 0) {
-                        if (($row[3] == NULL) || ($row[5] == NULL)) {
-                            $row[3] = 'N/A';
-                            $row[5] = 'N/A';
-                        }
+                      
                         echo '    <h1>HISTORIC EXCEPTIONS</h1>
                         <tr>
                     
