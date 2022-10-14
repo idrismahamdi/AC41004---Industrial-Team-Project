@@ -20,19 +20,25 @@ if (isset($_POST['logout'])) {
 }
 
 if (isset($_POST['submit'])) {
-    $date = new DateTime('now');
-    if ($_POST['reviewDate'] == "oneMonth") {
-        $date->modify('+1 month'); 
-    } else if ($_POST['reviewDate'] == "threeMonths") {
 
+    if ($_POST['reviewDate'] == "oneMonth") {
+        $date = new DateTime('now');
+        $date->modify('+1 month');
+    } else if ($_POST['reviewDate'] == "threeMonths") {
+        $date = new DateTime('now');
         $date->modify('+3 month');
     } else  if ($_POST['reviewDate'] == "sixMonths") {
+        $date = new DateTime('now');
         $date->modify('+6 month');
     } else if ($_POST['reviewDate'] == "oneYear") {
+        $date = new DateTime('now');
         $date->modify('+12 month');
+    } else {
+        $date = new DateTime($_POST['custom']);
     }
+
     $date = $date->format('Y-m-d h:i:s');
-    echo $date;
+
     $current = new DateTime('now');
     $current = $current->format('Y-m-d h:i:s');
 
@@ -50,6 +56,7 @@ if (isset($_POST['submit'])) {
     echo 'alert("Exception Added");';
     echo 'window.location.href = "dashboard.php";';
     echo '</script>';
+    die();
 }
 
 
@@ -92,7 +99,7 @@ if (isset($_POST['submit'])) {
     <br>
     <div class="main">
         <div class="card">
-            <?php include "Components/ExceptionForm/exception-form.html"?>
+            <?php include "Components/ExceptionForm/exception-form.php" ?>
         </div>
     </div>
     <script async src='https://cdn.jsdelivr.net/npm/es-module-shims@1/dist/es-module-shims.min.js'
@@ -109,7 +116,7 @@ if (isset($_POST['submit'])) {
     <br>
     <footer>
         Visit our website:<br>
-            <a class="footer-link" href="https://www.brightsolid.com/">BrightSolid</a>
+        <a class="footer-link" href="https://www.brightsolid.com/">BrightSolid</a>
     </footer>
 </body>
 
