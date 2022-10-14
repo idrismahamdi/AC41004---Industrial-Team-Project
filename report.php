@@ -61,91 +61,96 @@ if (isset($_POST['logout'])) {
     <div class="main">
         <?php
 
-            $query = ('CALL get_rule_details(:rID)');
-            $stmt = $mysql->prepare($query);
-            $stmt->bindValue(':rID', $_SESSION['rule']);
-            $stmt->execute();
-            $result = $stmt->fetch();
-            echo '<h2>Created for Rule ', $result[0];
-            echo '</h2>';
-            echo '<p>', $result[1];
-            echo '</p>';
-            ?>
+        $query = ('CALL get_rule_details(:rID)');
+        $stmt = $mysql->prepare($query);
+        $stmt->bindValue(':rID', $_SESSION['rule']);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        echo '<h2>Created for Rule ', $result[0];
+        echo '</h2>';
+        echo '<p>', $result[1];
+        echo '</p>';
+        ?>
         <br>
 
         <?php
-                echo '<h3>NON-COMPLIANT RESOURCES</h3>';
+        echo '<h3>NON-COMPLIANT RESOURCES</h3>';
 
-                echo '<div class="card">';
-                $query = ('CALL get_non_compliant_resource_for_rules(:rID, :cID)');
-                $stmt = $mysql->prepare($query);
-                $stmt->bindValue(':rID', $_SESSION['rule']);
-                $stmt->bindValue(':cID', $_SESSION['cID']);
-                $stmt->execute();
-                $result = $stmt->fetchAll();
-                $myArr = array();
-                $reviewDate = array();
-                $countNonCompliant = 0;
+        echo '<div class="card">';
+        $query = ('CALL get_non_compliant_resource_for_rules(:rID, :cID)');
+        $stmt = $mysql->prepare($query);
+        $stmt->bindValue(':rID', $_SESSION['rule']);
+        $stmt->bindValue(':cID', $_SESSION['cID']);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        $myArr = array();
+        $reviewDate = array();
+        $countNonCompliant = 0;
 
-                foreach ($result as $row) {
+        foreach ($result as $row) {
 
-                    $query = ('CALL get_exception_for_resource(:resourceID,:cID, :rID)');
-                    $stmt = $mysql->prepare($query);
-                    $stmt->bindValue(':resourceID', $row[1]);
-                    $stmt->bindValue(':rID', $_SESSION['rule']);
-                    $stmt->bindValue(':cID', $_SESSION['cID']);
-                    $stmt->execute();
-                    $test = $stmt->fetch();
-                    if (empty($test)) {
+            $query = ('CALL get_exception_for_resource(:resourceID,:cID, :rID)');
+            $stmt = $mysql->prepare($query);
+            $stmt->bindValue(':resourceID', $row[1]);
+            $stmt->bindValue(':rID', $_SESSION['rule']);
+            $stmt->bindValue(':cID', $_SESSION['cID']);
+            $stmt->execute();
+            $test = $stmt->fetch();
+            if (empty($test)) {
 
-                        if ($countNonCompliant == 0) {
-                            echo '
+                if ($countNonCompliant == 0) {
+                    echo '
                 <table class="table table-borderless">
                 <thead class="thead-dark">
                     <tr>
                     <th scope="col">Resource Name</th>
                     <th scope="col">Exceptions</th>
+                    ';
+                    if ($_SESSION['user_role'] == 1) {
+                        echo '
                     <th scope="col">Create an Exception</th>
+                    }
                     </tr>
                 </thead>
                 <tbody>';
-                        }
-                        echo '<tr>';
-                        echo '<td>', $row[0], '</td>';
-                        echo ' <td><form action="" method="post"><button name="view" value=', $row[1], ' class="btn btn-info">View</button></form></td>';
-
-                        if ($_SESSION['user_role'] == 1) {
-
-                        echo '<td><form action="" method="post"><button name="create" value=', $row[1], ' class="btn btn-info">Create</button> </form></td>';
-                        }
-                        echo '</tr>';
-                        $countNonCompliant += 1;
-                    } else {
-                        $myArr[] = $row[0];
-                        $reviewDate[] = $test[1];
-                        $lastUpdated[] = $test[2];
-                        $resourceID[] =  $test[3];
                     }
                 }
-                echo '</tbody></table>';
-                if ($countNonCompliant == 0) {
-                    echo '<p>There is no resourses which do not comply with this rule</p>';
-                }
-                echo '</div><br>';
-                $i = 0;
-                echo '<br><h3>COMPLIANT RESOURCES</h3>';
-                echo '<div class="card">';
+                echo '<tr>';
+                echo '<td>', $row[0], '</td>';
+                echo ' <td><form action="" method="post"><button name="view" value=', $row[1], ' class="btn btn-info">View</button></form></td>';
 
-                $countCompliant = 0;
-                $query = ('CALL get_resource_for_rules(:rID, :cID)');
-                $stmt = $mysql->prepare($query);
-                $stmt->bindValue(':rID', $_SESSION['rule']);
-                $stmt->bindValue(':cID', $_SESSION['cID']);
-                $stmt->execute();
-                $noncompliant = $stmt->fetchAll();
-                foreach ($myArr as $item) {
-                    if ($countCompliant == 0) {
-                        echo '
+                if ($_SESSION['user_role'] == 1) {
+
+                    echo '<td><form action="" method="post"><button name="create" value=', $row[1], ' class="btn btn-info">Create</button> </form></td>';
+                }
+                echo '</tr>';
+                $countNonCompliant += 1;
+            } else {
+                $myArr[] = $row[0];
+                $reviewDate[] = $test[1];
+                $lastUpdated[] = $test[2];
+                $resourceID[] =  $test[3];
+            }
+        }
+        echo '</tbody></table>';
+        if ($countNonCompliant == 0) {
+            echo '<p>There is no resourses which do not comply with this rule</p>';
+        }
+        echo '</div><br>';
+        $i = 0;
+        echo '<br><h3>COMPLIANT RESOURCES</h3>';
+        echo '<div class="card">';
+
+        $countCompliant = 0;
+        $query = ('CALL get_resource_for_rules(:rID, :cID)');
+        $stmt = $mysql->prepare($query);
+        $stmt->bindValue(':rID', $_SESSION['rule']);
+        $stmt->bindValue(':cID', $_SESSION['cID']);
+        $stmt->execute();
+        $noncompliant = $stmt->fetchAll();
+        foreach ($myArr as $item) {
+            if ($countCompliant == 0) {
+                echo '
                 <table class="table">
                 <thead class="thead-dark">
                 <tr>
@@ -157,26 +162,26 @@ if (isset($_POST['logout'])) {
                 </tr>
                 </thead>
                 <tbody>';
-                    }
-                    echo '<tr>';
-                    echo '<td>', $myArr[$countCompliant], '</td>';
-                    echo '<td>Yes</td>';
-                    echo '<td>', $reviewDate[$countCompliant], '</td>';
-                    echo '<td>', $lastUpdated[$countCompliant], '</td>';
-                    echo ' <td> <form action="" method="post"><button name="view" value=', $resourceID[$countCompliant], ' class="btn btn-info">View</button></td> </form>';
-                    echo '</tr>';
-                    $countCompliant += 1;
-                }
+            }
+            echo '<tr>';
+            echo '<td>', $myArr[$countCompliant], '</td>';
+            echo '<td>Yes</td>';
+            echo '<td>', $reviewDate[$countCompliant], '</td>';
+            echo '<td>', $lastUpdated[$countCompliant], '</td>';
+            echo ' <td> <form action="" method="post"><button name="view" value=', $resourceID[$countCompliant], ' class="btn btn-info">View</button></td> </form>';
+            echo '</tr>';
+            $countCompliant += 1;
+        }
 
-                foreach ($noncompliant as $non) {
-                    foreach ($result as $row) {
-                        if ($row[0] == $non[0]) {
-                            $i += 1;
-                        }
-                    }
-                    if ($i == 0) {
-                        if ($countCompliant == 0) {
-                            echo '
+        foreach ($noncompliant as $non) {
+            foreach ($result as $row) {
+                if ($row[0] == $non[0]) {
+                    $i += 1;
+                }
+            }
+            if ($i == 0) {
+                if ($countCompliant == 0) {
+                    echo '
         <table class="table">
             <thead class="thead-dark">
                 <tr>
@@ -188,24 +193,24 @@ if (isset($_POST['logout'])) {
                 </tr>
             </thead>
             <tbody>';
-                        }
-                        echo '<tr>';
-                        echo '<td>', $non[0], '</td>';
-                        echo '<td>N/A</td>';
-                        echo '<td>N/A</td>';
-                        echo '<td>N/A</td>';
-                        echo ' <td> <form action="" method="post"> <button name="view" value=', $non[1], ' class="btn btn-info">View</button></td> </form>';
-                        echo '</tr>';
-                        $countCompliant += 1;
-                    }
                 }
-                echo '</tbody></table>';
-                if ($countCompliant == 0) {
+                echo '<tr>';
+                echo '<td>', $non[0], '</td>';
+                echo '<td>N/A</td>';
+                echo '<td>N/A</td>';
+                echo '<td>N/A</td>';
+                echo ' <td> <form action="" method="post"> <button name="view" value=', $non[1], ' class="btn btn-info">View</button></td> </form>';
+                echo '</tr>';
+                $countCompliant += 1;
+            }
+        }
+        echo '</tbody></table>';
+        if ($countCompliant == 0) {
 
-                    echo '<p style="text-align:center">There is no resourses which do comply with this rule</p>';
-                }
+            echo '<p style="text-align:center">There is no resourses which do comply with this rule</p>';
+        }
 
-                ?>
+        ?>
     </div>
     </div>
     <br>
