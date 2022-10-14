@@ -491,7 +491,7 @@ BEGIN
     LEFT JOIN account ON account.account_id = resource.account_id
     LEFT JOIN customer ON customer.customer_id = account.account_id
     LEFT JOIN user ON user.user_id = exception.last_updated_by
-	WHERE resource.resource_id = 1144 AND customer.customer_id = 1;
+	WHERE resource.resource_id = resourceID AND customer.customer_id = cID;
 END //
 
 DELIMITER ;
@@ -532,12 +532,9 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE get_Exception_History_For_Resource(cID int, rID int)
 BEGIN
-
-	SELECT action, action_dt, old_exception_value, new_justification, old_justification, new_review_date, old_review_date, user.user_name FROM exception_audit
-    LEFT JOIN user ON user.user_id AND exception_audit.user_id
-    WHERE exception_audit.customer_id = cID AND exception_audit.resource_id = rID 
+SELECT action, action_dt, old_exception_value, new_justification, old_justification, new_review_date, old_review_date, user.user_name FROM exception_audit, user
+    WHERE exception_audit.customer_id = cID AND exception_audit.resource_id = rID  AND user.user_id = exception_audit.user_id
     ORDER BY action_dt DESC;
-
 END //
 DELIMITER ;
 
