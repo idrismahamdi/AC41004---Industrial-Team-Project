@@ -6,7 +6,8 @@ if ($_SESSION['user_role'] == 2) {
     echo '<script type="text/javascript">';
     echo 'alert("You do not have permission to update an exception");';
     echo 'window.location.href = "view.php";';
-    echo '</script>';}
+    echo '</script>';
+}
 
 if ($_SESSION['loggedin'] == false) {
     header('Location: login.php');
@@ -24,12 +25,13 @@ if (isset($_POST['submit'])) {
     if ($_POST['reviewDate'] == "oneMonth") {
         $date->modify('+1 month'); // or you can use '-90 day' for deduct
     } else if ($_POST['reviewDate'] == "threeMonths") {
-
         $date->modify('+3 month');
     } else  if ($_POST['reviewDate'] == "sixMonths") {
         $date->modify('+6 month');
     } else if ($_POST['reviewDate'] == "oneYear") {
         $date->modify('+12 month');
+    } else {
+        $date = new DateTime($_POST['custom']);
     }
     $date = $date->format('Y-m-d h:i:s');
     $current = new DateTime('now');
@@ -90,7 +92,7 @@ if (isset($_POST['submit'])) {
     <br>
     <div class="main">
         <div class="card">
-            <?php include "Components/ExceptionForm/exception-form.html"; ?>
+            <?php include "Components/ExceptionForm/exception-form.php"; ?>
         </div>
     </div>
     <script async src='https://cdn.jsdelivr.net/npm/es-module-shims@1/dist/es-module-shims.min.js'
@@ -107,7 +109,7 @@ if (isset($_POST['submit'])) {
     <br>
     <footer>
         Visit our website:<br>
-            <a class="footer-link" href="https://www.brightsolid.com/">BrightSolid</a>
+        <a class="footer-link" href="https://www.brightsolid.com/">BrightSolid</a>
     </footer>
 </body>
 
