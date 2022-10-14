@@ -96,7 +96,7 @@ if (isset($_POST['logout'])) {
             $stmt->bindValue(':cID', $_SESSION['cID']);
             $stmt->execute();
             $test = $stmt->fetch();
-            if (empty($test)) {
+            if (empty($test) || strtotime("today") >= strtotime($test[1])) {
 
                 if ($countNonCompliant == 0) {
                     echo '
@@ -206,7 +206,7 @@ if (isset($_POST['logout'])) {
         echo '</tbody></table>';
         if ($countCompliant == 0) {
 
-            echo '<p style="text-align:center">There is no resourses which do comply with this rule</p>';
+            echo '<p style="text-align:center">There is no resources which do comply with this rule</p>';
         }
 
         ?>
