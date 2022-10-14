@@ -24,7 +24,7 @@ if (isset($_POST['logout'])) {
     die();
 } ?>
 <!doctype html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -56,9 +56,9 @@ if (isset($_POST['logout'])) {
         </ol>
     </nav>
     <br>
-    <h1>DETAILED REPORT<h1>
+    <h1>DETAILED REPORT</h1>
 
-
+            <div class="main">
             <?php
 
             $query = ('CALL get_rule_details(:rID)');
@@ -72,10 +72,9 @@ if (isset($_POST['logout'])) {
             echo '</p>';
             ?>
             <br>
-            <div class="main">
 
                 <?php
-                echo '<h1>NON-COMPLIANT RESOURCES</h1>';
+                echo '<h3>NON-COMPLIANT RESOURCES</h3>';
 
                 echo '<div class="card">';
                 $query = ('CALL get_non_compliant_resource_for_rules(:rID, :cID)');
@@ -108,7 +107,8 @@ if (isset($_POST['logout'])) {
                     <th scope="col">Exceptions</th>
                     <th scope="col">Create an Exception</th>
                     </tr>
-                </thead>';
+                </thead>
+                <tbody>';
                         }
                         echo '<tr>';
                         echo '<td>', $row[0], '</td>';
@@ -123,13 +123,13 @@ if (isset($_POST['logout'])) {
                         $resourceID[] =  $test[3];
                     }
                 }
-                echo '</table>';
+                echo '</tbody></table>';
                 if ($countNonCompliant == 0) {
                     echo '<p>There is no resourses which do not comply with this rule</p>';
                 }
                 echo '</div><br>';
                 $i = 0;
-                echo '<br><h1>COMPLIANT RESOURCES</h1>';
+                echo '<br><h3>COMPLIANT RESOURCES</h3>';
                 echo '<div class="card">';
 
                 $countCompliant = 0;
@@ -151,7 +151,8 @@ if (isset($_POST['logout'])) {
                     <th scope="col">Last Updated</th>
                     <th scope="col">Exceptions</th>
                 </tr>
-                </thead>';
+                </thead>
+                <tbody>';
                     }
                     echo '<tr>';
                     echo '<td>', $myArr[$countCompliant], '</td>';
@@ -159,7 +160,7 @@ if (isset($_POST['logout'])) {
                     echo '<td>', $reviewDate[$countCompliant], '</td>';
                     echo '<td>', $lastUpdated[$countCompliant], '</td>';
                     echo ' <td> <form action="" method="post"><button name="view" value=', $resourceID[$countCompliant], ' class="btn btn-info">View</button></td> </form>';
-                    echo '</tr></div>';
+                    echo '</tr>';
                     $countCompliant += 1;
                 }
 
@@ -181,7 +182,8 @@ if (isset($_POST['logout'])) {
                     <th scope="col">Last Updated</th>
                     <th scope="col">Exceptions</th>
                 </tr>
-            </thead>';
+            </thead>
+            <tbody>';
                         }
                         echo '<tr>';
                         echo '<td>', $non[0], '</td>';
@@ -193,24 +195,19 @@ if (isset($_POST['logout'])) {
                         $countCompliant += 1;
                     }
                 }
-                echo '</table>';
+                echo '</tbody></table>';
                 if ($countCompliant == 0) {
 
-                    echo '<p style="text-align:center">There is no resourses which do comply with this rule</p></div>';
+                    echo '<p style="text-align:center">There is no resourses which do comply with this rule</p>';
                 }
 
                 ?>
-
-
-                </table>
-            </div>
-            </div>
+              </div>
             </div>
             <br>
             <footer>
-                <p>Visit our website:<br>
+                Visit our website:<br>
                     <a class="footer-link" href="https://www.brightsolid.com/">BrightSolid</a>
-                </p>
             </footer>
 </body>
 

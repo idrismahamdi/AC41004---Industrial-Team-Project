@@ -39,7 +39,7 @@ if (isset($_POST['submit'])) {
     $stmt = $mysql->prepare($query);
     $stmt->bindValue(':eID', $_SESSION['update']);
     $stmt->bindValue(':uID', $_SESSION['user_id']);
-    $stmt->bindValue(':justify', $_POST['justifcation']);
+    $stmt->bindValue(':justify', $_POST['justification']);
     $stmt->bindValue(':reviewDate', $date);
     $stmt->execute();
 
@@ -52,7 +52,7 @@ if (isset($_POST['submit'])) {
 
 ?>
 <!doctype html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -81,6 +81,7 @@ if (isset($_POST['submit'])) {
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="dashboard.php">Summary Dashboard</a></li>
             <li class="breadcrumb-item"><a href="report.php">Detailed Report</a></li>
+            <li class="breadcrumb-item"><a href="view.php">Exception History</a></li>
             <li class="breadcrumb-item active" aria-current="page">Exception Form</li>
         </ol>
     </nav>
@@ -89,49 +90,7 @@ if (isset($_POST['submit'])) {
     <br>
     <div class="main">
         <div class="card">
-            <form class="exception-form" form action="" method="post">
-                <fieldset class='row mb-3 align-items-center'>
-                    <legend class='col-2 col-form-label'><strong><u>Review in:</u></strong></legend>
-                    <div class="col col-auto">
-                        <div class='btn-group' role='group' aria-label='Review date radio toggle button group'>
-                            <input type='radio' class='btn-check' name='reviewDate' id='oneMonth' value='oneMonth'
-                                autocomplete='off'>
-                            <label class='btn btn-outline-primary m-0' for='oneMonth'>1 Month</label>
-                            <input type='radio' class='btn-check' name='reviewDate' id='threeMonths' value='threeMonths'
-                                autocomplete='off'>
-                            <label class='btn btn-outline-primary m-0' for='threeMonths'>3 Months</label>
-
-                            <input type='radio' class='btn-check' name='reviewDate' id='sixMonths' value='sixMonths'
-                                autocomplete='off'>
-                            <label class='btn btn-outline-primary m-0' for='sixMonths'>6 Months</label>
-
-                            <input type='radio' class="btn-check" name='reviewDate' id='oneYear' value='oneYear'
-                                autocomplete='off'>
-                            <label class='btn btn-outline-primary m-0' for='oneYear'>1 Year</label>
-
-
-                        </div>
-                    </div>
-
-                </fieldset>
-
-                <div class='row mb-3 justify-content-start'>
-                    <div class='col-2'>
-                        <label for='justification' class='form-label'><strong><u>Justification:</strong></u></label>
-                    </div>
-                    <div class='col'>
-                        <textarea class='form-control' name='justifcation' id='justification' rows='4'
-                            required></textarea>
-                    </div>
-                </div>
-
-                <div class=" row mb-3 justify-content-start">
-                    <div class="col offset-2">
-                        <button class="btn btn-primary col" name="submit" type=" submit">Update
-                            exception</button>
-                    </div>
-                </div>
-            </form>
+            <?php include "Components/ExceptionForm/exception-form.html"; ?>
         </div>
     </div>
     <script async src='https://cdn.jsdelivr.net/npm/es-module-shims@1/dist/es-module-shims.min.js'
@@ -147,9 +106,8 @@ if (isset($_POST['submit'])) {
     <script type="module" src="Components/ExceptionForm/exception-form.js"></script>
     <br>
     <footer>
-        <p>Visit our website:<br>
+        Visit our website:<br>
             <a class="footer-link" href="https://www.brightsolid.com/">BrightSolid</a>
-        </p>
     </footer>
 </body>
 

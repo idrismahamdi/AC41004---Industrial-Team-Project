@@ -26,7 +26,7 @@ if (isset($_POST['update'])) {
 }
 ?>
 <!doctype html>
-<html>
+<html lang="en">
 
 <head>
 
@@ -79,6 +79,7 @@ if (isset($_POST['update'])) {
 
     <br>
     <div class="main">
+    <h3>CURRENT EXCEPTIONS</h3>
         <div class="card">
             <table class="container text-center overflow-scroll">
                 <?php
@@ -157,7 +158,9 @@ if (isset($_POST['update'])) {
         </div>
     </div>
 
+    <br>
 
+    <h3>EXCEPTION HISTORY</h3>
     <div class="main">
         <div class="card">
             <table class="container text-center overflow-scroll">
@@ -186,8 +189,8 @@ if (isset($_POST['update'])) {
             <th>Action</th>
             <th>Date of Action</th>
             <th>Exception Value</th>
-            <th>New Justifcation</th>
-            <th>Old Justifcation</th>
+            <th>New Justification</th>
+            <th>Old Justification</th>
             <th>New Review Date</th>
             <th>Old Review Date</th>
             <th>User</th>
@@ -242,9 +245,8 @@ if (isset($_POST['update'])) {
     </div>
     <br>
     <footer>
-        <p>Visit our website:<br>
+            Visit our website:<br>
             <a class="footer-link" href="https://www.brightsolid.com/">BrightSolid</a>
-        </p>
     </footer>
 </body>
 
