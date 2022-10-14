@@ -18,12 +18,14 @@ if (isset($_POST['submit'])) {
         if ($result[0] != 0) {
             session_start();
             $_SESSION['loggedin'] = true;
-            $query = ('SELECT * FROM user');
+            $query = ('SELECT * FROM user WHERE user_name = :uName');
             $stmt = $mysql->prepare($query);
+            $stmt->bindParam(":uName", $_POST['username']);
             $stmt->execute();
             $result = $stmt->fetch();
             $_SESSION['user_name'] = $result[1];
             $_SESSION['user_role'] = $result[3];
+
             $_SESSION['user_id'] = $result[0];
 
 
