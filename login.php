@@ -4,10 +4,13 @@ require "connection.php";
 if (isset($_POST['submit'])) {
     //execute sql query to see if the admin is on the database
     try {
+        $password = $_POST['password'];
+        $password .= 'brightsolid';
+        $hashed_password = hash('sha256', $password);
         $query = ('SELECT login((:uName),(:uPassword))');
         $stmt = $mysql->prepare($query);
         $stmt->bindParam(":uName", $_POST['username']);
-        $stmt->bindParam(":uPassword", $_POST['password']);
+        $stmt->bindParam(":uPassword", $hashed_password);
         $stmt->execute();
         $result = $stmt->fetch();
         //check to see if exists or not
@@ -66,7 +69,7 @@ if (isset($_POST['submit'])) {
 <body>
 
     <header>
-        <img src="logo2.png" height="150px" alt="brightsolid" class="w-custom h-custom">
+        <img src="logo.png" height="150px" alt="brightsolid" class="w-custom h-custom">
     </header>
 
     <h1>Cloud Compliance Dashboard Login</h1>
