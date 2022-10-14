@@ -93,6 +93,7 @@ $result = $stmt->fetchAll();
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Compliance</th>
+                        <th scope="col">Non Compliant</th>
                         <th scope="col">Rule</th>
                         <th scope="col">Detailed Report</th>
                     </tr>
@@ -112,6 +113,10 @@ $result = $stmt->fetchAll();
           $stmt->bindValue(':cID', $_SESSION['cID']);
           $stmt->execute();
           $complies = $stmt->fetchAll();
+          $noncomplieresource = 0;
+
+
+
 
           $query = ('CALL get_exceptions_for_resource_for_a_rule(:rID, :cID)');
           $stmt = $mysql->prepare($query);
@@ -119,6 +124,8 @@ $result = $stmt->fetchAll();
           $stmt->bindValue(':cID', $_SESSION['cID']);
           $stmt->execute();
           $exempt = $stmt->fetchAll();
+          $noncomplieresource = count($complies) - count($exempt);
+
 
 
           if (empty($complies[0]) || (count($exempt) == count($complies))) {
@@ -128,7 +135,23 @@ $result = $stmt->fetchAll();
           }
 
           echo '
-                </td>
+                </td>';
+
+
+          if ($noncomplieresource != 0) {
+            echo ' <td>
+                <strong>', $noncomplieresource, '
+                    </strong>
+                </td>';
+          } else {
+            echo ' <td>
+                <strong> N/A
+                    </strong>
+                </td>';
+          }
+
+
+          echo '
                 <td>
                     <strong>', $row[1], '
                     </strong>
