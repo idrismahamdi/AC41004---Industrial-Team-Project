@@ -477,7 +477,8 @@ BEGIN
     LEFT JOIN customer ON customer.customer_id = account.account_id
     LEFT JOIN user ON user.customer_id = customer.customer_id
     LEFT JOIN rule on rule.rule_id = exception.rule_id
-	WHERE resource.resource_id = resourceID AND customer.customer_id = cID and rule.rule_id = ruleID;
+	WHERE resource.resource_id = resourceID AND customer.customer_id = cID and rule.rule_id = ruleID
+    ORDER BY exception.review_date DESC;
 END //
 DELIMITER ;
 
@@ -499,7 +500,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE suspend_exception(exceptionID int, uID int)
 BEGIN
-	INSERT INTO exception_audit (exception_id,user_id,customer_id,rule_id,action,action_dt,resource_id, old_exception_value, old_justification, old_review_date) SELECT exception_id,uID,customer_id,rule_id,"SUSPEND",NOW(),resource_id, exception_value, justification, review_date FROM exception WHERE exception.exception_id = exceptionID; 
+	INSERT INTO exception_audit (exception_id,user_id,customer_id,rule_id,action,action_dt,resource_id, old_exception_value, old_justification, old_review_date, new_justification) SELECT exception_id,uID,customer_id,rule_id,"SUSPEND",NOW(),resource_id, exception_value, justification, review_date, "N/A" FROM exception WHERE exception.exception_id = exceptionID; 
     DELETE FROM exception WHERE exception_ID = exceptionID; 
 END //
 DELIMITER ;
@@ -523,7 +524,8 @@ BEGIN
 
 	SELECT action, action_dt, old_exception_value, new_justification, old_justification, new_review_date, old_review_date, user.user_name FROM exception_audit
     LEFT JOIN user ON user.user_id AND exception_audit.user_id
-    WHERE exception_audit.customer_id = cID AND exception_audit.resource_id = rID;
+    WHERE exception_audit.customer_id = cID AND exception_audit.resource_id = rID
+    ORDER BY action_dt DESC;
 END //
 DELIMITER ;
 
