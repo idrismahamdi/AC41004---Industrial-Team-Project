@@ -58,8 +58,8 @@ if (isset($_POST['logout'])) {
     <br>
     <h1>DETAILED REPORT</h1>
 
-            <div class="main">
-            <?php
+    <div class="main">
+        <?php
 
             $query = ('CALL get_rule_details(:rID)');
             $stmt = $mysql->prepare($query);
@@ -71,9 +71,9 @@ if (isset($_POST['logout'])) {
             echo '<p>', $result[1];
             echo '</p>';
             ?>
-            <br>
+        <br>
 
-                <?php
+        <?php
                 echo '<h3>NON-COMPLIANT RESOURCES</h3>';
 
                 echo '<div class="card">';
@@ -113,7 +113,11 @@ if (isset($_POST['logout'])) {
                         echo '<tr>';
                         echo '<td>', $row[0], '</td>';
                         echo ' <td><form action="" method="post"><button name="view" value=', $row[1], ' class="btn btn-info">View</button></form></td>';
+
+                        if ($_SESSION['user_role'] == 1) {
+
                         echo '<td><form action="" method="post"><button name="create" value=', $row[1], ' class="btn btn-info">Create</button> </form></td>';
+                        }
                         echo '</tr>';
                         $countNonCompliant += 1;
                     } else {
@@ -202,13 +206,13 @@ if (isset($_POST['logout'])) {
                 }
 
                 ?>
-              </div>
-            </div>
-            <br>
-            <footer>
-                Visit our website:<br>
-                    <a class="footer-link" href="https://www.brightsolid.com/">BrightSolid</a>
-            </footer>
+    </div>
+    </div>
+    <br>
+    <footer>
+        Visit our website:<br>
+        <a class="footer-link" href="https://www.brightsolid.com/">BrightSolid</a>
+    </footer>
 </body>
 
 </html>
