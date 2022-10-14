@@ -21,7 +21,7 @@
 
                 <input type='radio' class="btn-check" name='reviewDate' onclick="showDate();" id='date' value='date'
                     autocomplete='off' required>
-                <label class='btn btn-outline-primary m-0' for='date'>Other</label>
+                <label class='btn btn-outline-primary m-0' for='date'>Custom</label>
                 <input style="display: none;" type="date" id="start" name="custom"
                     min="<?php echo date("Y-m-d", strtotime(' + 1 days'));; ?>">
 
