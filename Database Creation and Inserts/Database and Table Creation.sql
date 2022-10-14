@@ -402,10 +402,10 @@ INSERT INTO rule(rule_id,rule_name,resource_type_id,rule_description) VALUES (6,
 INSERT INTO rule(rule_id,rule_name,resource_type_id,rule_description) VALUES (7,'rds-detect-unencrypted-instances',10,'If a developer creates an AWS RDS Instance and the storage attached to the Instance is not encrypted then the the developer and compliance team are notified.');
 INSERT INTO rule(rule_id,rule_name,resource_type_id,rule_description) VALUES (8,'lambda-detect-unauthorised-public-function',7,'If a developer creates an AWS Lambda function and attaches the instance to a public subnet (e.g. a subnet which is addressable to/from the internet) then the developer and compliance team are notified');
 
-INSERT INTO user(user_id,user_name,user_password,role_id,customer_id) VALUES (1,'system','password',1,1);
+INSERT INTO user(user_id,user_name,user_password,role_id,customer_id) VALUES (1,'system','d500c78015d9082c251eeb52e488e16aeab865d4e423b3fd2246127e4816b38f',1,1);
 
 INSERT INTO user_role(user_role_id,user_role_name) VALUES (1,'system');
-
+INSERT INTO user_role(user_role_id,user_role_name) VALUES (2,'auditor');
 
 -- Login verifcation for users--
 DELIMITER //
@@ -484,7 +484,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE get_exceptions(resourceID int, cID int)
 BEGIN
-	SELECT exception.exception_value, exception.review_date, exception.last_updated, exception.resource_id, exception.exception_id
+	SELECT exception.exception_value, user.user_name, exception.justification, exception.review_date,  exception.last_updated, exception.exception_id
 	FROM exception
 	LEFT JOIN resource ON exception.resource_id = resource.resource_id 
     LEFT JOIN account ON account.account_id = resource.account_id
@@ -497,9 +497,9 @@ DELIMITER ;
 
 -- suspend exception --
 DELIMITER //
-CREATE PROCEDURE suspend_exception(exceptionID int, cID int, uID int)
+CREATE PROCEDURE suspend_exception(exceptionID int, uID int)
 BEGIN
-	INSERT INTO exception_audit (exception_id,user_id,customer_id,rule_id,action,action_dt,resource_id) SELECT exception_id,uID,customer_id,rule_id,"SUSPEND",NOW(),resource_id FROM exception WHERE exception.exception_id = exceptionID AND exception.customer_id = cID; 
+	INSERT INTO exception_audit (exception_id,user_id,customer_id,rule_id,action,action_dt,resource_id, old_exception_value, old_justification, old_review_date) SELECT exception_id,uID,customer_id,rule_id,"SUSPEND",NOW(),resource_id, exception_value, justification, review_date FROM exception WHERE exception.exception_id = exceptionID; 
     DELETE FROM exception WHERE exception_ID = exceptionID; 
 END //
 DELIMITER ;
@@ -507,9 +507,9 @@ DELIMITER ;
 -- update exception -- 
 
 DELIMITER //
-CREATE PROCEDURE update_exception(exceptionID int, cID int, NewReviewDate timestamp, NewJustification varchar(255), uID int)
+CREATE PROCEDURE update_exception(exceptionID int, uID int, NewReviewDate timestamp, NewJustification varchar(255))
 BEGIN
-	INSERT INTO exception_audit (exception_id,user_id,customer_id,rule_id,action,action_dt,new_review_date,new_justification,old_review_date,old_justification,resource_id) SELECT exception_id,uID,customer_id,rule_id,"UPDATE",NOW(),NewReviewDate,NewJustification,review_date,justification,resource_id FROM exception WHERE exception.exception_id = exceptionID AND exception.customer_id = cID; 
+	INSERT INTO exception_audit (exception_id,user_id,customer_id,rule_id,action,action_dt,new_review_date,new_justification,old_review_date,old_justification,resource_id,new_exception_value, old_exception_value) SELECT exception_id,uID,customer_id,rule_id,"UPDATE",NOW(),NewReviewDate,NewJustification,review_date,justification,resource_id, exception_value, exception_value FROM exception WHERE exception.exception_id = exceptionID; 
     UPDATE exception SET review_date = NewReviewDate, justification = NewJustification, last_updated_by = uID, last_updated = NOW() WHERE exception_ID = exceptionID;
     #last update by is being set to the customer ID but might actually supposed to be USER ID
 END //
@@ -521,7 +521,9 @@ DELIMITER //
 CREATE PROCEDURE get_Exception_History_For_Resource(cID int, rID int)
 BEGIN
 
-	SELECT action, action_dt, old_exception_value, new_exception_value, old_justifcation, new_justification, old_review_date, new_review_date FROM exception_audit WHERE customer_id = cID AND resource_id = rID;
+	SELECT action, action_dt, old_exception_value, new_justification, old_justification, new_review_date, old_review_date, user.user_name FROM exception_audit
+    LEFT JOIN user ON user.user_id AND exception_audit.user_id
+    WHERE exception_audit.customer_id = cID AND exception_audit.resource_id = rID;
 END //
 DELIMITER ;
 
@@ -545,5 +547,4 @@ BEGIN
 SELECT rule_name, rule_description FROM rule WHERE rule.rule_id = rID;
 END //
 DELIMITER ;
-
 
