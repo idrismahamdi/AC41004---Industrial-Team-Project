@@ -109,7 +109,6 @@ if (isset($_POST['logout'])) {
                     if ($_SESSION['user_role'] == 1) {
                         echo '
                     <th scope="col">Create an Exception</th>
-                    }
                     </tr>
                 </thead>
                 <tbody>';
