@@ -70,6 +70,7 @@ if (isset($_POST['logout'])) {
         echo '</h2>';
         echo '<p>', $result[1];
         echo '</p>';
+         $_SESSION['rule_name'] = $result[0];
         ?>
         <br>
 
@@ -95,6 +96,7 @@ if (isset($_POST['logout'])) {
             $stmt->bindValue(':rID', $_SESSION['rule']);
             $stmt->bindValue(':cID', $_SESSION['cID']);
             $stmt->execute();
+   
             $test = $stmt->fetch();
             if (empty($test)) {
 
