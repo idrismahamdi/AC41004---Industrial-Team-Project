@@ -100,7 +100,7 @@ if (isset($_POST['logout'])) {
 
                 if ($countNonCompliant == 0) {
                     echo '
-                <table class="table table-borderless style="margin-left:auto;margin-right:auto;text-align:center;">
+                <table class="table table-borderless style="margin-left:auto;margin-right:auto;text-align:center; width: 100%;">
                 <thead class="thead-dark">
                     <tr>
                     <th scope="col">Resource Name</th>
