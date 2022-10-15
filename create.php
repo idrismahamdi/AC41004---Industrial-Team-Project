@@ -42,13 +42,14 @@ if (isset($_POST['submit'])) {
     $current = new DateTime('now');
     $current = $current->format('Y-m-d h:i:s');
 
-    $query = ("INSERT INTO exception(exception_id,customer_id,rule_id,resource_id,last_updated_by,exception_value,justification,review_date,last_updated) VALUES (NULL,:cID,:ruleID,:resourceID,:lastupdatedby,'bsol-dev-bakery-assets',:justify,:reviewDate,:lastUpdated);");
+    $query = ("INSERT INTO exception(exception_id,customer_id,rule_id,resource_id,last_updated_by,exception_value,justification,review_date,last_updated) VALUES (NULL,:cID,:ruleID,:resourceID,:lastupdatedby,:rule_name,:justify,:reviewDate,:lastUpdated);");
     $stmt = $mysql->prepare($query);
     $stmt->bindValue(':cID', $_SESSION['cID']);
     $stmt->bindValue(':resourceID', $_SESSION['create']);
     $stmt->bindValue(':ruleID', $_SESSION['rule']);
     $stmt->bindValue(':justify', $_POST['justification']);
     $stmt->bindValue(':reviewDate', $date);
+    $stmt->bindValue(':rule_name', $_SESSION['rule_name']);
     $stmt->bindValue(':lastUpdated', $current);
     $stmt->bindValue(':lastupdatedby', $_SESSION['user_id']);
     $stmt->execute();
