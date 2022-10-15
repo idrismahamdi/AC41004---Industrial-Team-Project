@@ -100,7 +100,7 @@ if (isset($_POST['logout'])) {
 
                 if ($countNonCompliant == 0) {
                     echo '
-                <table class="table table-borderless">
+                <table class="table table-borderless style="margin-left:auto;margin-right:auto;text-align:center;">
                 <thead class="thead-dark">
                     <tr>
                     <th scope="col">Resource Name</th>
@@ -151,7 +151,7 @@ if (isset($_POST['logout'])) {
         foreach ($myArr as $item) {
             if ($countCompliant == 0) {
                 echo '
-                <table class="table">
+                <table class="table" style="margin-left:auto;margin-right:auto;text-align:center;">
                 <thead class="thead-dark">
                 <tr>
                     <th scope="col">Resource Name</th>
@@ -182,7 +182,7 @@ if (isset($_POST['logout'])) {
             if ($i == 0) {
                 if ($countCompliant == 0) {
                     echo '
-        <table class="table">
+        <table class="table" style="margin-left:auto;margin-right:auto;text-align:center;>
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Resource Name</th>
