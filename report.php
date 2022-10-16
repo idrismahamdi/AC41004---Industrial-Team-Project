@@ -106,7 +106,7 @@ if (isset($_POST['logout'])) {
                 <thead class="thead-dark">
                     <tr>
                     <th scope="col">Resource Name</th>
-                    <th scope="col">Exceptions</th>
+                    <th scope="col">Exception History</th>
                     ';
                     if ($_SESSION['user_role'] == 1) {
                         echo '
