@@ -142,7 +142,7 @@ SET FOREIGN_KEY_CHECKS=0;
 INSERT INTO account(account_id,account_ref,platform_id,customer_id) VALUES (1,011072135518,2,1);
 INSERT INTO customer(customer_id,customer_name) VALUES (1,'brightsolid');
 
-INSERT INTO exception(exception_id,customer_id,rule_id,resource_id,last_updated_by,exception_value,justification,review_date,last_updated) VALUES (1,1,3,1144,1,'bs-quorum-dropbox','Enabled by system','2021-12-12 16:23:47','22-09-12 17:25:37');
+INSERT INTO exception(exception_id,customer_id,rule_id,resource_id,last_updated_by,exception_value,justification,review_date,last_updated) VALUES (1,1,3,1144,1,'ec2-detect-unauthorised-public-instance','Enabled by system','2021-12-12 16:23:47','22-09-12 17:25:37');
 
 
 INSERT INTO non_compliance(resource_id,rule_id) VALUES (1269,1);
@@ -532,8 +532,8 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE get_Exception_History_For_Resource(cID int, rID int)
 BEGIN
-SELECT action, action_dt, old_exception_value, new_justification, old_justification, new_review_date, old_review_date, user.user_name FROM exception_audit, user
-    WHERE exception_audit.customer_id = cID AND exception_audit.resource_id = rID  AND user.user_id = exception_audit.user_id
+SELECT action, action_dt, old_exception_value, new_justification, old_justification, new_review_date, old_review_date, user.user_name FROM exception_audit LEFT JOIN user ON user.user_id = exception_audit.user_id
+    WHERE exception_audit.customer_id = cID AND exception_audit.resource_id = rID  
     ORDER BY action_dt DESC;
 END //
 DELIMITER ;
