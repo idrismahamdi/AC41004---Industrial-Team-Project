@@ -12,7 +12,7 @@ if (isset($_POST['logout'])) {
   die();
 } ?>
 <!doctype html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="utf-8">

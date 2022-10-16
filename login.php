@@ -56,7 +56,7 @@ if (isset($_POST['submit'])) {
 
 ?>
 <!doctype html>
-<html>
+<html lang="en">
 
 <head>
 
@@ -71,7 +71,7 @@ if (isset($_POST['submit'])) {
 <body>
 
     <header>
-        <img src="logo.png" height="150px" alt="brightsolid" class="w-custom h-custom">
+        <img src="logo2.png" height="150px" alt="brightsolid" class="w-custom h-custom">
     </header>
 
     <h1>Cloud Compliance Dashboard Login</h1>
